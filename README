@@ -1,0 +1,11 @@
+# PHP API reader for the SONO wallet
+
+If you want to fork it:
+
+- Change the $url path to your coins exchange API path
+- If you are not using CREX as API Request path, you may need to change the $price json decode values
+
+
+You can use this code however you want, just keep my Github Link in the files. Thats the only requirement the usage has
+
+Made by https://github.com/zPools/
