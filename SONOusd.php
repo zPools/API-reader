@@ -18,5 +18,6 @@ $price2 = $json2["Tickers"] ["0"] ["Last"];
 $priceUSD = $price1 * $price2;
 
 // Display the result. The 0.8 means: 8 digit after the seperator = 1 Satoshi
+echo PHP_EOL ;
 echo sprintf('%0.10f', $priceUSD).PHP_EOL;
 ?>
