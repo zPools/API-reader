@@ -10,13 +10,13 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 } 
 // Delete data from database "currently we only need btc price"	
-$sqldel1 = "DELETE FROM $exchange WHERE coin LIKE 'ETH%'";
-$sqldel2 = "DELETE FROM $exchange WHERE coin LIKE 'USD%'";
-$sqldel3 = "DELETE FROM $exchange WHERE coin LIKE 'CNY%'";
-$sqldel4 = "DELETE FROM $exchange WHERE coin LIKE 'EUR%'";
-$sqldel5 = "DELETE FROM $exchange WHERE coin LIKE 'JPY%'";
-$sqldel6 = "DELETE FROM $exchange WHERE coin LIKE 'RUB%'";
-
+$sqldel1 = "DELETE FROM $exchange WHERE `coin` REGEXP '^ETH_'";
+$sqldel2 = "DELETE FROM $exchange WHERE `coin` REGEXP '^USD_'";
+$sqldel3 = "DELETE FROM $exchange WHERE `coin` REGEXP '^CNY_'";
+$sqldel4 = "DELETE FROM $exchange WHERE `coin` REGEXP '^EUR_'";
+$sqldel5 = "DELETE FROM $exchange WHERE `coin` REGEXP '^JPY_'";
+$sqldel6 = "DELETE FROM $exchange WHERE `coin` REGEXP '^RUB_'";
+$sqldel7 = "UPDATE `crex` SET `coin` = SUBSTRING(coin,5) WHERE `coin` REGEXP '^BTC_'";
 
 
 if ($conn->query($sqldel1) === TRUE) 
@@ -69,4 +69,12 @@ if ($conn->query($sqldel6) === TRUE)
 	{
 		echo "Error: " . $sqlwr . "<br>" . $conn->error;
 	}
+if ($conn->query($sqldel7) === TRUE) 
+	{
+		echo "SUCCESSFULLY CHANGED NAMES from $exchange <br />";
+	} 
+	else 
+	{
+		echo "Error: " . $sqlwr . "<br>" . $conn->error;
+	}	
 $conn->close();

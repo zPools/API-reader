@@ -31,24 +31,32 @@
 </form> 
 <?php
 $coinsname = $_REQUEST['coin'];
-echo "<br /> Lets see what I got for $coinsname: <br /> ";
-            
+
+// Include db settings and make a connection
 include ('..\settings\mysql\settings-db.php');
 $conn = new mysqli($servername, $username, $password, $dbname);	
-			
 if ($conn->connect_error) {
 	die("Connection failed: " . $conn->connect_error);
-} 			
+} 	
 
-// SQL-Query erzeugen 
-$sql = "SELECT coin, price_btc, price_usd FROM crex WHERE coin = '$coinsname' ORDER BY date DESC LIMIT 1;"; 
+if ($coinsname){
+echo "<br /> Lets see what I got for $coinsname: <br /> ";
+}
+else {
+echo "<br /> Please select a coin from the dropdown menu above<br /> ";
+}
+	
+// Make the SQL query
+$sql = "SELECT coin, price_btc, price_usd, date FROM crex WHERE coin = '$coinsname' ORDER BY date DESC LIMIT 1;"; 
 $result = $conn->query($sql); 
 
 while ($row = $result->fetch_assoc())
 	{
-	echo $row["price_btc"], " ", "BTC", " -> ", $row["price_usd"], " USD on Crex";	
+	echo $row["price_btc"], " ", "BTC", " -> ", $row["price_usd"], " USD on Crex. The last update was ", $row["date"];	
 	}
- 
+
+
+	
 ?>
 
 
