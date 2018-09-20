@@ -1,4 +1,6 @@
 <?php
+// TODO -> Clean for southexchange /DASH   /USD   /TUSD  and naming 
+
 // Include the mysql settings
 include('..\settings\mysql\settings-db.php');
 // Get the job out of the exchange out of the navigation
@@ -19,6 +21,7 @@ $sqldel6 = "DELETE FROM $exchange WHERE `coin` REGEXP '^RUB_'";
 $sqldel7 = "UPDATE $exchange SET `coin` = SUBSTRING(coin,5) WHERE `coin` REGEXP '^BTC_'";
 $sqldel8 = "DELETE FROM $exchange WHERE `coin` REGEXP '^USDT_'";
 $sqldel9 = "DELETE FROM $exchange WHERE `coin` REGEXP '^XMR_'";
+
 
 
 
@@ -88,6 +91,7 @@ if ($conn->query($sqldel9) === TRUE)
 	{
 		echo "Error: " . $sqlwr . "<br>" . $conn->error;
 	}	
+
 	
 if ($conn->query($sqldel7) === TRUE) 
 	{

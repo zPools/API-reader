@@ -46,13 +46,19 @@ else
 	echo "<br /> Please select a coin from the dropdown menu above<br /> ";
 	}
 	
-// Make the SQL query
+// Make the SQL querys
 $sql = "SELECT coin, price_btc, price_usd, date FROM crex WHERE coin = '$coinsname' ORDER BY date DESC LIMIT 1;"; 
 $result = $conn->query($sql);
 while ($row = $result->fetch_assoc())
 	{
-	echo $row["price_btc"], " ", "BTC", " -> ", $row["price_usd"], " USD on Crex. The last update was ", $row["date"];	
+	echo $row["price_btc"], " ", "BTC", " -> ", $row["price_usd"], " USD on Crex. The last update was ", $row["date"], "<br />";	
 	}	
+$sql = "SELECT coin, price_btc, price_usd, date FROM poloniex WHERE coin = '$coinsname' ORDER BY date DESC LIMIT 1;"; 
+$result = $conn->query($sql);
+while ($row = $result->fetch_assoc())
+	{
+	echo $row["price_btc"], " ", "BTC", " -> ", $row["price_usd"], " USD on Poloniex. The last update was ", $row["date"], "<br />";	
+	}
 ?>
 </body> 	
 </html> 
