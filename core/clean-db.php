@@ -16,7 +16,10 @@ $sqldel3 = "DELETE FROM $exchange WHERE `coin` REGEXP '^CNY_'";
 $sqldel4 = "DELETE FROM $exchange WHERE `coin` REGEXP '^EUR_'";
 $sqldel5 = "DELETE FROM $exchange WHERE `coin` REGEXP '^JPY_'";
 $sqldel6 = "DELETE FROM $exchange WHERE `coin` REGEXP '^RUB_'";
-$sqldel7 = "UPDATE `crex` SET `coin` = SUBSTRING(coin,5) WHERE `coin` REGEXP '^BTC_'";
+$sqldel7 = "UPDATE $exchange SET `coin` = SUBSTRING(coin,5) WHERE `coin` REGEXP '^BTC_'";
+$sqldel8 = "DELETE FROM $exchange WHERE `coin` REGEXP '^USDT_'";
+$sqldel9 = "DELETE FROM $exchange WHERE `coin` REGEXP '^XMR_'";
+
 
 
 if ($conn->query($sqldel1) === TRUE) 
@@ -69,9 +72,26 @@ if ($conn->query($sqldel6) === TRUE)
 	{
 		echo "Error: " . $sqlwr . "<br>" . $conn->error;
 	}
+if ($conn->query($sqldel8) === TRUE) 
+	{
+		echo "SUCCESSFULLY CLEAND USDT from $exchange <br />";
+	} 
+	else 
+	{
+		echo "Error: " . $sqlwr . "<br>" . $conn->error;
+	}	
+if ($conn->query($sqldel9) === TRUE) 
+	{
+		echo "SUCCESSFULLY CLEAND XMR from $exchange <br />";
+	} 
+	else 
+	{
+		echo "Error: " . $sqlwr . "<br>" . $conn->error;
+	}	
+	
 if ($conn->query($sqldel7) === TRUE) 
 	{
-		echo "SUCCESSFULLY CHANGED NAMES from $exchange <br />";
+		echo "SUCCESSFULLY CHANGED NAMES in $exchange <br />";
 	} 
 	else 
 	{
