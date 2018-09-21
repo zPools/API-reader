@@ -59,6 +59,14 @@ while ($row = $result->fetch_assoc())
 	{
 	echo $row["price_btc"], " ", "BTC", " -> ", $row["price_usd"], " USD on Poloniex. The last update was ", $row["date"], "<br />";	
 	}
-?>
+$sql = "SELECT coin, price_btc, price_usd, date FROM southxchange WHERE coin = '$coinsname' ORDER BY date DESC LIMIT 1;"; 
+$result = $conn->query($sql);
+while ($row = $result->fetch_assoc())
+	{
+	echo $row["price_btc"], " ", "BTC", " -> ", $row["price_usd"], " USD on southXchange. The last update was ", $row["date"], "<br />";	
+	}
+
+
+	?>
 </body> 	
 </html> 
