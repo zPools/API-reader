@@ -1,6 +1,4 @@
 <?php
-// TODO -> Clean for southexchange /DASH   /USD   /TUSD  and naming 
-
 // Include the mysql settings
 include('..\settings\mysql\settings-db.php');
 // Get the job out of the exchange out of the navigation
@@ -30,138 +28,105 @@ $sqldel15 = "DELETE FROM $exchange WHERE `coin` REGEXP '\w*/LTC'";
 $sqldel16 = "DELETE FROM $exchange WHERE `coin` REGEXP '\w*/TUSD'";
 $sqldel17 = "UPDATE $exchange SET `coin` = CONCAT(LEFT(`coin`, CHAR_LENGTH(`coin`) -4), '') WHERE `coin` REGEXP '\w*/BTC'";
 
+
 if ($conn->query($sqldel1) === TRUE) 
 	{echo "SUCCESSFULLY CLEAND ETH from $exchange <br />";} 
 else 
 	{echo "Error: " . $sqlwr . "<br>" . $conn->error;}
-	
+
+
 if ($conn->query($sqldel2) === TRUE) 
-	{
-		echo "SUCCESSFULLY CLEAND USD from $exchange <br />";
-	} 
-	else 
-	{
-		echo "Error: " . $sqlwr . "<br>" . $conn->error;
-	}
-	
+	{echo "SUCCESSFULLY CLEAND USD from $exchange <br />";} 
+else 
+	{echo "Error: " . $sqlwr . "<br>" . $conn->error;}
+
+
 if ($conn->query($sqldel3) === TRUE) 
-	{
-		echo "SUCCESSFULLY CLEAND CNY from $exchange <br />";
-	} 
-	else 
-	{
-		echo "Error: " . $sqlwr . "<br>" . $conn->error;
-	}
+	{echo "SUCCESSFULLY CLEAND CNY from $exchange <br />";} 
+else 
+	{echo "Error: " . $sqlwr . "<br>" . $conn->error;}
+
+
 if ($conn->query($sqldel4) === TRUE) 
-	{
-		echo "SUCCESSFULLY CLEAND EUR from $exchange <br />";
-	} 
-	else 
-	{
-		echo "Error: " . $sqlwr . "<br>" . $conn->error;
-	}
+	{echo "SUCCESSFULLY CLEAND EUR from $exchange <br />";} 
+else 
+	{echo "Error: " . $sqlwr . "<br>" . $conn->error;}
+
+
 if ($conn->query($sqldel5) === TRUE) 
-	{
-		echo "SUCCESSFULLY CLEAND JPY from $exchange <br />";
-	} 
-	else 
-	{
-		echo "Error: " . $sqlwr . "<br>" . $conn->error;
-	}
+	{echo "SUCCESSFULLY CLEAND JPY from $exchange <br />";} 
+else 
+	{echo "Error: " . $sqlwr . "<br>" . $conn->error;}
+
+
 if ($conn->query($sqldel6) === TRUE) 
-	{
-		echo "SUCCESSFULLY CLEAND RUB from $exchange <br />";
-	} 
-	else 
-	{
-		echo "Error: " . $sqlwr . "<br>" . $conn->error;
-	}
+	{echo "SUCCESSFULLY CLEAND RUB from $exchange <br />";} 
+else 
+	{echo "Error: " . $sqlwr . "<br>" . $conn->error;}
+
+
 if ($conn->query($sqldel8) === TRUE) 
-	{
-		echo "SUCCESSFULLY CLEAND USDT from $exchange <br />";
-	} 
-	else 
-	{
-		echo "Error: " . $sqlwr . "<br>" . $conn->error;
-	}	
+	{echo "SUCCESSFULLY CLEAND USDT from $exchange <br />";} 
+else 
+	{echo "Error: " . $sqlwr . "<br>" . $conn->error;}	
+
+
 if ($conn->query($sqldel9) === TRUE) 
-	{
-		echo "SUCCESSFULLY CLEAND XMR from $exchange <br />";
-	} 
-	else 
-	{
-		echo "Error: " . $sqlwr . "<br>" . $conn->error;
-	}	
+	{echo "SUCCESSFULLY CLEAND XMR from $exchange <br />";} 
+else 
+	{echo "Error: " . $sqlwr . "<br>" . $conn->error;}	
+
+
 if ($conn->query($sqldel10) === TRUE) 
-	{
-		echo "SUCCESSFULLY CLEAND USNBT from $exchange <br />";
-	} 
-	else 
-	{
-		echo "Error: " . $sqlwr . "<br>" . $conn->error;
-	}
+	{echo "SUCCESSFULLY CLEAND USNBT from $exchange <br />";} 
+else 
+	{echo "Error: " . $sqlwr . "<br>" . $conn->error;}
+
+
 if ($conn->query($sqldel11) === TRUE) 
-	{
-		echo "SUCCESSFULLY CLEAND USD from $exchange <br />";
-	} 
-	else 
-	{
-		echo "Error: " . $sqlwr . "<br>" . $conn->error;
-	}		
+	{echo "SUCCESSFULLY CLEAND USD from $exchange <br />";} 
+else 
+	{echo "Error: " . $sqlwr . "<br>" . $conn->error;}		
+
+
 if ($conn->query($sqldel12) === TRUE) 
-	{
-		echo "SUCCESSFULLY CLEAND BCH from $exchange <br />";
-	} 
-	else 
-	{
-		echo "Error: " . $sqlwr . "<br>" . $conn->error;
-	}	
+	{echo "SUCCESSFULLY CLEAND BCH from $exchange <br />";} 
+else 
+	{echo "Error: " . $sqlwr . "<br>" . $conn->error;}
+
+
 if ($conn->query($sqldel13) === TRUE) 
-	{
-		echo "SUCCESSFULLY CLEAND CNNBT from $exchange <br />";
-	} 
-	else 
-	{
-		echo "Error: " . $sqlwr . "<br>" . $conn->error;
-	}
+	{echo "SUCCESSFULLY CLEAND CNNBT from $exchange <br />";} 
+else 
+	{echo "Error: " . $sqlwr . "<br>" . $conn->error;}
+
+
 if ($conn->query($sqldel14) === TRUE) 
-	{
-		echo "SUCCESSFULLY CLEAND DASH from $exchange <br />";
-	} 
-	else 
-	{
-		echo "Error: " . $sqlwr . "<br>" . $conn->error;
-	}
+	{echo "SUCCESSFULLY CLEAND DASH from $exchange <br />";} 
+else 
+	{echo "Error: " . $sqlwr . "<br>" . $conn->error;}
+
+
 if ($conn->query($sqldel15) === TRUE) 
-	{
-		echo "SUCCESSFULLY CLEAND LTC from $exchange <br />";
-	} 
-	else 
-	{
-		echo "Error: " . $sqlwr . "<br>" . $conn->error;
-	}		
+	{echo "SUCCESSFULLY CLEAND LTC from $exchange <br />";} 
+else 
+	{echo "Error: " . $sqlwr . "<br>" . $conn->error;}
+
+
 if ($conn->query($sqldel16) === TRUE) 
-	{
-		echo "SUCCESSFULLY CLEAND TUSD from $exchange <br />";
-	} 
-	else 
-	{
-		echo "Error: " . $sqlwr . "<br>" . $conn->error;
-	}		
+	{echo "SUCCESSFULLY CLEAND TUSD from $exchange <br />";} 
+else 
+	{echo "Error: " . $sqlwr . "<br>" . $conn->error;}
+
+
 if ($conn->query($sqldel7) === TRUE) 
-	{
-		echo "SUCCESSFULLY CHANGED NAMES in $exchange <br />";
-	} 
-	else 
-	{
-		echo "Error: " . $sqlwr . "<br>" . $conn->error;
-	}
+	{echo "SUCCESSFULLY CHANGED NAMES in $exchange <br />";} 
+else 
+	{echo "Error: " . $sqlwr . "<br>" . $conn->error;}
+
+
 if ($conn->query($sqldel17) === TRUE) 
-	{
-		echo "SUCCESSFULLY CHANGED SPECIALNAMES in $exchange <br />";
-	} 
-	else 
-	{
-		echo "Error: " . $sqlwr . "<br>" . $conn->error;
-	}	
+	{echo "SUCCESSFULLY CHANGED SPECIALNAMES in $exchange <br />";} 
+else 
+	{echo "Error: " . $sqlwr . "<br>" . $conn->error;}	
 $conn->close();
