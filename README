@@ -1,3 +1,7 @@
-Create a database for every exchange and (see /settings/mysql)
-Create a database for exchange names
+Write a driver for the specific exchange (core/exchangename) or use existing one
+Create a database for every exchange (see /settings/mysql) 
+Create a database for exchange names and insert their names into it
 Create a database for coin names
+
+
+Run the driver -> run update-coins (not needed often but for first start)
