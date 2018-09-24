@@ -28,3 +28,5 @@ while ($row = $resultask->fetch_assoc())
 		}
 		}	
 	}
+$conn->close();
+?>
