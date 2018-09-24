@@ -10,6 +10,7 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 } 
 // Delete data from database "currently we only need btc price"	
+// TODO: Make it with less commands
 $sqldel1 = "DELETE FROM $exchange WHERE `coin` REGEXP '^ETH_'";
 $sqldel2 = "DELETE FROM $exchange WHERE `coin` REGEXP '^USD_'";
 $sqldel3 = "DELETE FROM $exchange WHERE `coin` REGEXP '^CNY_'";
@@ -27,6 +28,7 @@ $sqldel14 = "DELETE FROM $exchange WHERE `coin` REGEXP '\w*/DASH'";
 $sqldel15 = "DELETE FROM $exchange WHERE `coin` REGEXP '\w*/LTC'";
 $sqldel16 = "DELETE FROM $exchange WHERE `coin` REGEXP '\w*/TUSD'";
 $sqldel17 = "UPDATE $exchange SET `coin` = CONCAT(LEFT(`coin`, CHAR_LENGTH(`coin`) -4), '') WHERE `coin` REGEXP '\w*/BTC'";
+
 
 
 if ($conn->query($sqldel1) === TRUE) 
