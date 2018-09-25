@@ -26,7 +26,9 @@
 	
 	<!-- Insert awesomecomplete -->
 	<link href="css/awesomplete.css" rel="stylesheet">
-
+	
+	
+	
   </head>
 
   <body id="page-top">
@@ -34,7 +36,7 @@
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
       <div class="container">
-        <a class="navbar-brand js-scroll-trigger" href="#page-top">CoinPrice.io</a>
+        <a class="navbar-brand js-scroll-trigger" href="index.php">CoinPrice.io</a>
         <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -50,35 +52,23 @@
         </div>
       </div>
     </nav>
-
-    <header class="masthead text-center text-white d-flex">
-      <div class="container my-auto">
-        <div class="row">
-          <div class="col-lg-10 mx-auto">
-            <h1 class="text-uppercase">
-              <strong>Get the most out of your trades</strong>
-            </h1>
-            <hr>
-          </div>
-          <div class="col-lg-8 mx-auto">
-            <p class="text-faded mb-5">Start using Coin Price Info helps you to get the most profit out of your trades. It is as easy as select your coin you want to trade and find out where you get the best price. Buy and sell.</p>
-            <a class="btn btn-primary btn-xl js-scroll-trigger" href="#about">Start using - for free</a>
-          </div>
-        </div>
-      </div>
-    </header>
     <section class="bg-primary" id="about">
       <div class="container">
         <div class="row">
           <div class="col-lg-8 mx-auto text-center">
             <h2 class="section-heading text-white">Simply choose the coin you want to trade and find out where you get the best price.</h2>
             <hr class="light my-4">
-            <p class="text-faded mb-4">Once selected, simply press "Submit"</p>
-
-			<form action="info.php" method="">
+			
+			<form action="" method="">
 			<select name="coin"> 			
 			<?php
-			$coinsname = $_REQUEST['coin'];	
+			$coinsname = $_REQUEST['coin'];
+            include ('..\settings\mysql\settings-db.php');
+			$conn = new mysqli($servername, $username, $password, $dbname);	
+			
+			if ($conn->connect_error) {
+			die("Connection failed: " . $conn->connect_error);
+			} 			
              // SQL-Query
              $sql = "SELECT coin FROM coin"; 
              $result = $conn->query($sql); 	
@@ -95,6 +85,50 @@
           </div>
         </div>
 
+
+		
+<div class="container">
+  <?php echo '<h2 class="section-heading text-white">'.$coinsname.'</h2>'; ?>            
+  
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th><p class="text-faded mb-4">Price in BTC:</p></th>
+        <th><p class="text-faded mb-4">Price in USD:</p></th>
+        <th><p class="text-faded mb-4">On Exchange:</p></th>
+		<th><p class="text-faded mb-4">Last updated:</p></th>
+      </tr>
+    </thead>
+    <tbody>
+		<?php
+		// Include db settings and make a connection
+		include ('..\settings\mysql\settings-db.php');
+		// Ask for all exchange we have (1st while) and echo their results (2nd while)
+		$sqlask = "SELECT name, link, displayname FROM exchange";
+		$resultask = $conn->query($sqlask);
+		while ($row = $resultask->fetch_assoc())
+			{	
+			$ex = $row["name"];
+			$exlink = $row["link"];
+			$exdisp = $row["displayname"];
+			$sql = "SELECT coin, price_btc, price_usd, date FROM $ex WHERE coin = '$coinsname' ORDER BY date DESC LIMIT 1;"; 
+			$result = $conn->query($sql);
+			while ($row = $result->fetch_assoc())
+				{
+				$time = strtotime($row["date"]);	
+				echo "<tr>";
+				echo "<td><a target='_blank' href='".$exlink."'><p class='text-faded mb-4'>".$row["price_btc"]."</p></a></td>";
+				echo "<td><a target='_blank' href='".$exlink."'><p class='text-faded mb-4'>".$row["price_usd"]."</p></a></td>";
+				echo "<td><a target='_blank' href='".$exlink."'><p class='text-faded mb-4'>".$exdisp."</p></a></td>";
+				echo "<td><a target='_blank' href='".$exlink."'><p class='text-faded mb-4'>".'Last update was '.humanTiming($time).' ago'."</p></a></td>";
+				echo "</tr></a>";
+				}	
+			}
+			
+		?>
+    </tbody>
+  </table>
+</div>	
 	  
     </section>
     <section id="contact">
@@ -132,5 +166,27 @@
 	<script src="js/awesomplete.js" async></script>
 
   </body>
-
+<?php
+function humanTiming ($time)
+	{					
+	$time = time() - $time; // to get the time since that moment
+	$time = ($time<1)? 1 : $time;
+	$tokens = array (
+		31536000 => 'year',
+		2592000 => 'month',
+		604800 => 'week',
+		86400 => 'day',
+		3600 => 'hour',
+		60 => 'minute',
+		1 => 'second'
+		);					
+	foreach ($tokens as $unit => $text) 
+		{
+		if ($time < $unit) continue;
+			$numberOfUnits = floor($time / $unit);
+			return $numberOfUnits.' '.$text.(($numberOfUnits>1)?'s':'');
+		}	
+					
+	}
+?>
 </html>

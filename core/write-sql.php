@@ -6,12 +6,6 @@ $exchange = $_REQUEST['ex'];
 $coinsname = $_REQUEST['coin'];
 $price1 = $_REQUEST['price'];
 $priceUSD = $_REQUEST['usd'];
-// Create connection
-$conn = new mysqli($servername, $username, $password, $dbname);
-// Check connection
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-} 
 // Read the current pull id...
 $sqlread = "SELECT pull FROM $exchange Order By pull DESC LIMIT 1";
 $read = $conn->query($sqlread);

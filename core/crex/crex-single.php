@@ -20,12 +20,6 @@ $priceUSD = $price1 * $price2;
 // Set timezone and set variable date with current date
 date_default_timezone_set('Europe/Berlin');
 $date = date('Y/m/d H:i:s');
-// Create connection
-$conn = new mysqli($servername, $username, $password, $dbname);
-// Check connection
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-} 
 // Read the current pull id...
 $sqlread = "SELECT pull FROM crex Order By pull DESC LIMIT 1";
 $read = $conn->query($sqlread);

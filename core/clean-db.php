@@ -3,12 +3,6 @@
 include('..\settings\mysql\settings-db.php');
 // Get the job out of the exchange out of the navigation
 $exchange = $_REQUEST['ex'];
-// Create connection
-$conn = new mysqli($servername, $username, $password, $dbname);
-// Check connection
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-} 
 // Delete data from database "currently we only need btc price"	
 // TODO: Make it with less commands
 // TODO2: If more exchanges come, the naming of the JSON can be a issue. Make it that only needed sql cleans per exchange are made
