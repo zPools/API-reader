@@ -25,8 +25,10 @@
     <link href="css/creative.min.css" rel="stylesheet">
 	
 	<!-- Insert awesomecomplete -->
+	<link href="css/awesomplete.base.css" rel="stylesheet">
 	<link href="css/awesomplete.css" rel="stylesheet">
 	
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.4/Chart.min.js"></script>
 	
 	
   </head>
@@ -59,36 +61,46 @@
             <h2 class="section-heading text-white">Simply choose the coin you want to trade and find out where you get the best price.</h2>
             <hr class="light my-4">
 			
-			<form action="" method="">
-			<select name="coin"> 			
-			<?php
-			$coinsname = $_REQUEST['coin'];
-            include ('..\settings\mysql\settings-db.php');
-			$conn = new mysqli($servername, $username, $password, $dbname);	
-			
-			if ($conn->connect_error) {
-			die("Connection failed: " . $conn->connect_error);
-			} 			
-             // SQL-Query
-             $sql = "SELECT coin FROM coin"; 
-             $result = $conn->query($sql); 	
-			if ($coinsname)
-			{echo "<option>$coinsname</option>";}					 
-             // make a option for every key               
-            while ($row = $result->fetch_assoc()) { 
-			$nameofcoin = $row["coin"];
-			echo ("<option>".$row["coin"]."</option>");}
-            $conn->close();
-			?> 
+			<form class="formTest" action="" method="POST">
+			<input id="myinput" name="coin" class="awesomplete" 	
+				<?php
+					include ('..\settings\mysql\settings-db.php');
+					$sql = "SELECT coin FROM coin"; 
+					$result = $conn->query($sql);
+					echo 'data-list="';
+					// make a option for every key               
+					while ($row = $result->fetch_assoc()) 
+						{echo ($row["coin"].", ");}
+					$conn->close();
+				?> 
+				"/>	
 			<input type="submit" value="Submit" />	
 			</form>
+			
+		<div class="container">
+			<?php
+			$coinsname = $_REQUEST['coin'];
+			if ($coinsname)
+			{
+			echo '
+				<br />
+				<div>
+				<canvas id="myChart"></canvas>
+				</div>';
+			}
+			?> 
+		
+	</div>
+			
           </div>
         </div>
 
-
 		
 <div class="container">
-  <?php echo '<h2 class="section-heading text-white">'.$coinsname.'</h2>'; ?>            
+  <?php
+  $coinsname = $_REQUEST['coin'];
+  echo '<h2 class="section-heading text-white">'.$coinsname.'</h2>'; 
+  ?>            
   
   <table class="table table-hover">
     <thead>
@@ -122,12 +134,69 @@
 				echo "<td><a target='_blank' href='".$exlink."'><p class='text-faded mb-4'>".$exdisp."</p></a></td>";
 				echo "<td><a target='_blank' href='".$exlink."'><p class='text-faded mb-4'>".'Last update was '.humanTiming($time).' ago'."</p></a></td>";
 				echo "</tr></a>";
-				}	
+				}		
 			}
-			
+			$conn->close();
 		?>
     </tbody>
   </table>
+  
+	<script>
+			var ctx = document.getElementById("myChart").getContext('2d');
+				var myChart = new Chart(ctx, {
+				type: 'line',
+				data: {
+					labels: [<?php 
+								// Include db settings and make a connection
+								include ('..\settings\mysql\settings-db.php');
+								// Ask for all exchange we have (1st while) and echo their results (2nd while)
+								$sqlask = "SELECT name, link, displayname FROM exchange";
+								$resultask = $conn->query($sqlask);
+								while ($row = $resultask->fetch_assoc())
+									{	
+									$ex = $row["name"];
+									$exlink = $row["link"];
+									$exdisp = $row["displayname"];
+									$sql = "SELECT coin FROM $ex WHERE coin = '$coinsname' ORDER BY date DESC LIMIT 1;"; 
+									$result = $conn->query($sql);
+									while ($row = $result->fetch_assoc())
+										{
+										echo '"'.$exdisp.'" ,';
+										}		
+									}
+									$conn->close();
+							?>],
+					datasets: [{
+					label: 'Price in BTC',
+					data: [<?php 
+								// Include db settings and make a connection
+								include ('..\settings\mysql\settings-db.php');
+								// Ask for all exchange we have (1st while) and echo their results (2nd while)
+								$sqlask = "SELECT name, link, displayname FROM exchange";
+								$resultask = $conn->query($sqlask);
+								while ($row = $resultask->fetch_assoc())
+									{	
+									$ex = $row["name"];
+									$exlink = $row["link"];
+									$exdisp = $row["displayname"];
+									$sql = "SELECT price_btc FROM $ex WHERE coin = '$coinsname' ORDER BY date DESC LIMIT 1;"; 
+									$result = $conn->query($sql);
+									while ($row = $result->fetch_assoc())
+										{
+										echo '"'.$row["price_btc"].'",';
+										}		
+									}
+									$conn->close();
+							?>],
+							
+
+						
+					backgroundColor: "rgba(153,255,51,1)"
+					
+					}]
+				}
+				});
+	</script>
 </div>	
 	  
     </section>
@@ -162,8 +231,9 @@
 
     <!-- Custom scripts for this template -->
     <script src="js/creative.min.js"></script>
-	
 	<script src="js/awesomplete.js" async></script>
+	
+	
 
   </body>
 <?php
@@ -185,8 +255,7 @@ function humanTiming ($time)
 		if ($time < $unit) continue;
 			$numberOfUnits = floor($time / $unit);
 			return $numberOfUnits.' '.$text.(($numberOfUnits>1)?'s':'');
-		}	
-					
+		}					
 	}
 ?>
 </html>

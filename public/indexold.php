@@ -29,11 +29,7 @@
             <?php
 			$coinsname = $_REQUEST['coin'];
             include ('..\settings\mysql\settings-db.php');
-			$conn = new mysqli($servername, $username, $password, $dbname);	
 			
-			if ($conn->connect_error) {
-			die("Connection failed: " . $conn->connect_error);
-			} 			
              // SQL-Query
              $sql = "SELECT coin FROM coin"; 
              $result = $conn->query($sql); 

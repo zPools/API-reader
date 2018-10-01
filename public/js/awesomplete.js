@@ -1,7 +1,7 @@
 /**
  * Simple, lightweight, usable local autocomplete library for modern browsers
  * Because there weren’t enough autocomplete scripts in the world? Because I’m completely insane and have NIH syndrome? Probably both. :P
- * @author Lea Verou http://leaverou.github.io/awesomplete
+ * @author Lea Verou https://leaverou.github.io/awesomplete
  * MIT license
  */
 
@@ -10,46 +10,42 @@
 var _ = function (input, o) {
 	var me = this;
 
-    // Keep track of number of instances for unique IDs
-    _.count = (_.count || 0) + 1;
-    this.count = _.count;
-
 	// Setup
-
-	this.isOpened = false;
 
 	this.input = $(input);
 	this.input.setAttribute("autocomplete", "off");
-	this.input.setAttribute("aria-owns", "awesomplete_list_" + this.count);
-	this.input.setAttribute("role", "combobox");
+	this.input.setAttribute("aria-autocomplete", "list");
 
-	// store constructor options in case we need to distinguish
-	// between default and customized behavior later on
-	this.options = o = o || {};
+	o = o || {};
 
-	configure(this, {
+	configure.call(this, {
 		minChars: 2,
 		maxItems: 10,
 		autoFirst: false,
-		data: _.DATA,
 		filter: _.FILTER_CONTAINS,
-		sort: o.sort === false ? false : _.SORT_BYLENGTH,
-		container: _.CONTAINER,
-		item: _.ITEM,
-		replace: _.REPLACE,
-		tabSelect: false
+		sort: _.SORT_BYLENGTH,
+		item: function (text, input) {
+			return $.create("li", {
+				innerHTML: text.replace(RegExp($.regExpEscape(input.trim()), "gi"), "<mark>$&</mark>"),
+				"aria-selected": "false"
+			});
+		},
+		replace: function (text) {
+			this.input.value = text;
+		}
 	}, o);
 
 	this.index = -1;
 
 	// Create necessary elements
 
-	this.container = this.container(input);
+	this.container = $.create("div", {
+		className: "awesomplete",
+		around: input
+	});
 
 	this.ul = $.create("ul", {
-		hidden: "hidden",
-        role: "listbox",
-        id: "awesomplete_list_" + this.count,
+		hidden: "",
 		inside: this.container
 	});
 
@@ -57,76 +53,56 @@ var _ = function (input, o) {
 		className: "visually-hidden",
 		role: "status",
 		"aria-live": "assertive",
-        "aria-atomic": true,
-        inside: this.container,
-        textContent: this.minChars != 0 ? ("Type " + this.minChars + " or more characters for results.") : "Begin typing for results."
+		"aria-relevant": "additions",
+		inside: this.container
 	});
 
 	// Bind events
 
-	this._events = {
-		input: {
-			"input": this.evaluate.bind(this),
-			"blur": this.close.bind(this, { reason: "blur" }),
-			"keydown": function(evt) {
-				var c = evt.keyCode;
+	$.bind(this.input, {
+		"input": this.evaluate.bind(this),
+		"blur": this.close.bind(this),
+		"keydown": function(evt) {
+			var c = evt.keyCode;
 
-				// If the dropdown `ul` is in view, then act on keydown for the following keys:
-				// Enter / Esc / Up / Down
-				if(me.opened) {
-					if (c === 13 && me.selected) { // Enter
-						evt.preventDefault();
-						me.select();
-					}
-					else if (c === 9 && me.selected && me.tabSelect) {
-						me.select();
-					}
-					else if (c === 27) { // Esc
-						me.close({ reason: "esc" });
-					}
-					else if (c === 38 || c === 40) { // Down/Up arrow
-						evt.preventDefault();
-						me[c === 38? "previous" : "next"]();
-					}
+			// If the dropdown `ul` is in view, then act on keydown for the following keys:
+			// Enter / Esc / Up / Down
+			if(me.opened) {
+				if (c === 13 && me.selected) { // Enter
+					evt.preventDefault();
+					me.select();
 				}
-			}
-		},
-		form: {
-			"submit": this.close.bind(this, { reason: "submit" })
-		},
-		ul: {
-			// Prevent the default mousedowm, which ensures the input is not blurred.
-			// The actual selection will happen on click. This also ensures dragging the
-			// cursor away from the list item will cancel the selection
-			"mousedown": function(evt) {
-				evt.preventDefault();
-			},
-			// The click event is fired even if the corresponding mousedown event has called preventDefault
-			"click": function(evt) {
-				var li = evt.target;
-
-				if (li !== this) {
-
-					while (li && !/li/i.test(li.nodeName)) {
-						li = li.parentNode;
-					}
-
-					if (li && evt.button === 0) {  // Only select on left click
-						evt.preventDefault();
-						me.select(li, evt.target);
-					}
+				else if (c === 27) { // Esc
+					me.close();
+				}
+				else if (c === 38 || c === 40) { // Down/Up arrow
+					evt.preventDefault();
+					me[c === 38? "previous" : "next"]();
 				}
 			}
 		}
-	};
+	});
 
-	$.bind(this.input, this._events.input);
-	$.bind(this.input.form, this._events.form);
-	$.bind(this.ul, this._events.ul);
+	$.bind(this.input.form, {"submit": this.close.bind(this)});
+
+	$.bind(this.ul, {"mousedown": function(evt) {
+		var li = evt.target;
+
+		if (li !== this) {
+
+			while (li && !/li/i.test(li.nodeName)) {
+				li = li.parentNode;
+			}
+
+			if (li) {
+				me.select(li);
+			}
+		}
+	}});
 
 	if (this.input.hasAttribute("list")) {
-		this.list = "#" + this.input.getAttribute("list");
-		this.input.removeAttribute("list");
+		this.list = "#" + input.getAttribute("list");
+		input.removeAttribute("list");
 	}
 	else {
 		this.list = this.input.getAttribute("data-list") || o.list || [];
@@ -143,22 +119,17 @@ _.prototype = {
 		else if (typeof list === "string" && list.indexOf(",") > -1) {
 				this._list = list.split(/\s*,\s*/);
 		}
+    else if (typeof list === "object") {
+      this._list = Object.keys(list);
+      this._listObject = list;
+    }
 		else { // Element or CSS selector
 			list = $(list);
 
 			if (list && list.children) {
-				var items = [];
-				slice.apply(list.children).forEach(function (el) {
-					if (!el.disabled) {
-						var text = el.textContent.trim();
-						var value = el.value || text;
-						var label = el.label || text;
-						if (value !== "") {
-							items.push({ label: label, value: value });
-						}
-					}
+				this._list = slice.apply(list.children).map(function (el) {
+					return el.textContent.trim();
 				});
-				this._list = items;
 			}
 		}
 
@@ -166,34 +137,28 @@ _.prototype = {
 			this.evaluate();
 		}
 	},
+  
+  get list() {
+    return this._list;
+  },
 
 	get selected() {
 		return this.index > -1;
 	},
 
 	get opened() {
-		return this.isOpened;
+		return this.ul && this.ul.getAttribute("hidden") == null;
 	},
 
-	close: function (o) {
-		if (!this.opened) {
-			return;
-		}
-
+	close: function () {
 		this.ul.setAttribute("hidden", "");
-		this.isOpened = false;
 		this.index = -1;
 
-		this.status.setAttribute("hidden", "");
-
-		$.fire(this.input, "awesomplete-close", o || {});
+		$.fire(this.input, "awesomplete-close");
 	},
 
 	open: function () {
 		this.ul.removeAttribute("hidden");
-		this.isOpened = true;
-
-		this.status.removeAttribute("hidden");
 
 		if (this.autoFirst && this.index === -1) {
 			this.goto(0);
@@ -202,42 +167,16 @@ _.prototype = {
 		$.fire(this.input, "awesomplete-open");
 	},
 
-	destroy: function() {
-		//remove events from the input and its form
-		$.unbind(this.input, this._events.input);
-		$.unbind(this.input.form, this._events.form);
-
-		// cleanup container if it was created by Awesomplete but leave it alone otherwise
-		if (!this.options.container) {
-			//move the input out of the awesomplete container and remove the container and its children
-			var parentNode = this.container.parentNode;
-
-			parentNode.insertBefore(this.input, this.container);
-			parentNode.removeChild(this.container);
-		}
-
-		//remove autocomplete and aria-autocomplete attributes
-		this.input.removeAttribute("autocomplete");
-		this.input.removeAttribute("aria-autocomplete");
-
-		//remove this awesomeplete instance from the global array of instances
-		var indexOfAwesomplete = _.all.indexOf(this);
-
-		if (indexOfAwesomplete !== -1) {
-			_.all.splice(indexOfAwesomplete, 1);
-		}
-	},
-
 	next: function () {
 		var count = this.ul.children.length;
-		this.goto(this.index < count - 1 ? this.index + 1 : (count ? 0 : -1) );
+
+		this.goto(this.index < count - 1? this.index + 1 : -1);
 	},
 
 	previous: function () {
 		var count = this.ul.children.length;
-		var pos = this.index - 1;
 
-		this.goto(this.selected && pos !== -1 ? pos : count - 1);
+		this.goto(this.selected? this.index - 1 : count - 1);
 	},
 
 	// Should not be used, highlights specific item without any checks!
@@ -252,41 +191,30 @@ _.prototype = {
 
 		if (i > -1 && lis.length > 0) {
 			lis[i].setAttribute("aria-selected", "true");
-
-			this.status.textContent = lis[i].textContent + ", list item " + (i + 1) + " of " + lis.length;
-
-            this.input.setAttribute("aria-activedescendant", this.ul.id + "_item_" + this.index);
-
-			// scroll to highlighted element in case parent's height is fixed
-			this.ul.scrollTop = lis[i].offsetTop - this.ul.clientHeight + lis[i].clientHeight;
-
-			$.fire(this.input, "awesomplete-highlight", {
-				text: this.suggestions[this.index]
-			});
+			this.status.textContent = lis[i].textContent;
 		}
+
+		$.fire(this.input, "awesomplete-highlight");
 	},
 
-	select: function (selected, origin) {
-		if (selected) {
-			this.index = $.siblingIndex(selected);
-		} else {
-			selected = this.ul.children[this.index];
-		}
+	select: function (selected) {
+		selected = selected || this.ul.children[this.index];
 
 		if (selected) {
-			var suggestion = this.suggestions[this.index];
+			var prevented;
 
-			var allowed = $.fire(this.input, "awesomplete-select", {
-				text: suggestion,
-				origin: origin || selected
+			$.fire(this.input, "awesomplete-select", {
+				text: selected.textContent,
+        values: (this._listObject) ? this._listObject[selected.textContent] : "",
+				preventDefault: function () {
+					prevented = true;
+				}
 			});
 
-			if (allowed) {
-				this.replace(suggestion);
-				this.close({ reason: "select" });
-				$.fire(this.input, "awesomplete-selectcomplete", {
-					text: suggestion
-				});
+			if (!prevented) {
+				this.replace(selected.textContent);
+				this.close();
+				$.fire(this.input, "awesomplete-selectcomplete");
 			}
 		}
 	},
@@ -295,45 +223,30 @@ _.prototype = {
 		var me = this;
 		var value = this.input.value;
 
-		if (value.length >= this.minChars && this._list && this._list.length > 0) {
+		if (value.length >= this.minChars && this._list.length > 0) {
 			this.index = -1;
 			// Populate list with options that match
 			this.ul.innerHTML = "";
 
-			this.suggestions = this._list
-				.map(function(item) {
-					return new Suggestion(me.data(item, value));
-				})
+			this._list
 				.filter(function(item) {
 					return me.filter(item, value);
-				});
+				})
+				.sort(this.sort)
+				.every(function(text, i) {
+					me.ul.appendChild(me.item(text, value));
 
-			if (this.sort !== false) {
-				this.suggestions = this.suggestions.sort(this.sort);
-			}
-
-			this.suggestions = this.suggestions.slice(0, this.maxItems);
-
-			this.suggestions.forEach(function(text, index) {
-					me.ul.appendChild(me.item(text, value, index));
+					return i < me.maxItems - 1;
 				});
 
 			if (this.ul.children.length === 0) {
-
-                this.status.textContent = "No results found";
-
-				this.close({ reason: "nomatches" });
-
+				this.close();
 			} else {
 				this.open();
-
-                this.status.textContent = this.ul.children.length + " results found";
 			}
 		}
 		else {
-			this.close({ reason: "nomatches" });
-
-                this.status.textContent = "No results found";
+			this.close();
 		}
 	}
 };
@@ -358,65 +271,28 @@ _.SORT_BYLENGTH = function (a, b) {
 	return a < b? -1 : 1;
 };
 
-_.CONTAINER = function (input) {
-	return $.create("div", {
-		className: "awesomplete",
-		around: input
-	});
-}
-
-_.ITEM = function (text, input, item_id) {
-	var html = input.trim() === "" ? text : text.replace(RegExp($.regExpEscape(input.trim()), "gi"), "<mark>$&</mark>");
-	return $.create("li", {
-		innerHTML: html,
-		"aria-selected": "false",
-        "id": "awesomplete_list_" + this.count + "_item_" + item_id
-	});
-};
-
-_.REPLACE = function (text) {
-	this.input.value = text.value;
-};
-
-_.DATA = function (item/*, input*/) { return item; };
-
 // Private functions
 
-function Suggestion(data) {
-	var o = Array.isArray(data)
-	  ? { label: data[0], value: data[1] }
-	  : typeof data === "object" && "label" in data && "value" in data ? data : { label: data, value: data };
-
-	this.label = o.label || o.value;
-	this.value = o.value;
-}
-Object.defineProperty(Suggestion.prototype = Object.create(String.prototype), "length", {
-	get: function() { return this.label.length; }
-});
-Suggestion.prototype.toString = Suggestion.prototype.valueOf = function () {
-	return "" + this.label;
-};
-
-function configure(instance, properties, o) {
+function configure(properties, o) {
 	for (var i in properties) {
 		var initial = properties[i],
-		    attrValue = instance.input.getAttribute("data-" + i.toLowerCase());
+		    attrValue = this.input.getAttribute("data-" + i.toLowerCase());
 
 		if (typeof initial === "number") {
-			instance[i] = parseInt(attrValue);
+			this[i] = parseInt(attrValue);
 		}
 		else if (initial === false) { // Boolean options must be false by default anyway
-			instance[i] = attrValue !== null;
+			this[i] = attrValue !== null;
 		}
 		else if (initial instanceof Function) {
-			instance[i] = null;
+			this[i] = null;
 		}
 		else {
-			instance[i] = attrValue;
+			this[i] = attrValue;
 		}
 
-		if (!instance[i] && instance[i] !== 0) {
-			instance[i] = (i in o)? o[i] : initial;
+		if (!this[i] && this[i] !== 0) {
+			this[i] = (i in o)? o[i] : initial;
 		}
 	}
 }
@@ -446,10 +322,6 @@ $.create = function(tag, o) {
 			var ref = $(val);
 			ref.parentNode.insertBefore(element, ref);
 			element.appendChild(ref);
-
-			if (ref.getAttribute("autofocus") != null) {
-				ref.focus();
-			}
 		}
 		else if (i in element) {
 			element[i] = val;
@@ -474,18 +346,6 @@ $.bind = function(element, o) {
 	}
 };
 
-$.unbind = function(element, o) {
-	if (element) {
-		for (var event in o) {
-			var callback = o[event];
-
-			event.split(/\s+/).forEach(function(event) {
-				element.removeEventListener(event, callback);
-			});
-		}
-	}
-};
-
 $.fire = function(target, type, properties) {
 	var evt = document.createEvent("HTMLEvents");
 
@@ -495,18 +355,12 @@ $.fire = function(target, type, properties) {
 		evt[j] = properties[j];
 	}
 
-	return target.dispatchEvent(evt);
+	target.dispatchEvent(evt);
 };
 
 $.regExpEscape = function (s) {
 	return s.replace(/[-\\^$*+?.()|[\]{}]/g, "\\$&");
-};
-
-$.siblingIndex = function (el) {
-	/* eslint-disable no-cond-assign */
-	for (var i = 0; el = el.previousElementSibling; i++);
-	return i;
-};
+}
 
 // Initialization
 
@@ -516,13 +370,8 @@ function init() {
 	});
 }
 
-// Make sure to export Awesomplete on self when in a browser
-if (typeof self !== "undefined") {
-	self.Awesomplete = _;
-}
-
 // Are we in a browser? Check for Document constructor
-if (typeof Document !== "undefined") {
+if (typeof Document !== 'undefined') {
 	// DOM already loaded?
 	if (document.readyState !== "loading") {
 		init();
@@ -536,11 +385,43 @@ if (typeof Document !== "undefined") {
 _.$ = $;
 _.$$ = $$;
 
+// Make sure to export Awesomplete on self when in a browser
+if (typeof self !== 'undefined') {
+	self.Awesomplete = _;
+}
+
 // Expose Awesomplete as a CJS module
-if (typeof module === "object" && module.exports) {
+if (typeof exports === 'object') {
 	module.exports = _;
 }
 
 return _;
 
 }());
+
+
+
+
+var testList = {
+  "lyon": {"a": 1, "b": 2},
+  "paris": {"a": 11},
+  "dijon": {"a": 111}
+};
+
+var formTest = document.getElementsByClassName("formTest");
+var input = document.getElementById("myinput");
+
+var myAwesomeComplete = new Awesomplete(input, {list: testList});
+
+input.addEventListener("awesomplete-select", function (e) {
+  console.log( e.values );
+  formTest[0].submit();
+});
+
+formTest.item(0).addEventListener("submit", function (e) {
+  e.preventDefault();
+  console.log("submit");
+});
+
+
+// myAwesomeComplete.list = "plop1, plop2, plop2, plop4"

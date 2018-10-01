@@ -78,16 +78,17 @@
 			<form action="info.php" method="">
 			<select name="coin"> 			
 			<?php
+			include('..\settings\mysql\settings-db.php');
 			$coinsname = $_REQUEST['coin'];	
-             // SQL-Query
-             $sql = "SELECT coin FROM coin"; 
-             $result = $conn->query($sql); 	
+            // SQL-Query
+            $sql = "SELECT coin FROM coin"; 
+            $result = $conn->query($sql); 	
 			if ($coinsname)
-			{echo "<option>$coinsname</option>";}					 
-             // make a option for every key               
+				{echo "<option>$coinsname</option>";}					 
+            // make a option for every key               
             while ($row = $result->fetch_assoc()) { 
-			$nameofcoin = $row["coin"];
-			echo ("<option>".$row["coin"]."</option>");}
+				$nameofcoin = $row["coin"];
+				echo ("<option>".$row["coin"]."</option>");}
             $conn->close();
 			?> 
 			<input type="submit" value="Submit" />	
