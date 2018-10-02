@@ -21,7 +21,7 @@ $sqldel12 = "DELETE FROM $exchange WHERE `coin` REGEXP '\w*/BCH' OR `coin` REGEX
 $sqldel13 = "DELETE FROM $exchange WHERE `coin` REGEXP '\w*/CNNBT' OR `coin` REGEXP '\w*-CNNBT'";
 $sqldel14 = "DELETE FROM $exchange WHERE `coin` REGEXP '\w*/DASH' OR `coin` REGEXP '\w*-DASH'";
 $sqldel15 = "DELETE FROM $exchange WHERE `coin` REGEXP '\w*/LTC' OR `coin` REGEXP '\w*-LTC'";
-$sqldel16 = "DELETE FROM $exchange WHERE `coin` REGEXP '\w*/TUSD' OR `coin` REGEXP '\w*-TUSD' OR `coin` REGEXP '\w*-USDT' OR `coin` REGEXP '\w*-USDC'";
+$sqldel16 = "DELETE FROM $exchange WHERE `coin` REGEXP '\w*/TUSD' OR `coin` REGEXP '\w*-TUSD' OR `coin` REGEXP '\w*-USDT' OR `coin` REGEXP '\w*-USDC' OR `coin` REGEXP '\w*USDC_'";
 $sqldel18 = "DELETE FROM $exchange WHERE `coin` REGEXP '\w*-NEO' OR `coin` REGEXP '\w*-ETH' OR `coin` REGEXP '\w*-KCS'";
 $sqldel17 = "UPDATE $exchange SET `coin` = CONCAT(LEFT(`coin`, CHAR_LENGTH(`coin`) -4), '') WHERE `coin` REGEXP '\w*/BTC' OR `coin` REGEXP '\w*-BTC'";
 

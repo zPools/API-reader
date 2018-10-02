@@ -5,8 +5,8 @@
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
+    <meta name="description" content="Cryptocurrency (e.g. Bitcoin - Litecoin) price information tool">
+    <meta name="author" content="miXe">
 
     <title>CoinPrice.io - Your coin price info</title>
 
@@ -25,8 +25,12 @@
     <link href="css/creative.min.css" rel="stylesheet">
 	
 	<!-- Insert awesomecomplete -->
+	<link href="css/awesomplete.base.css" rel="stylesheet">
 	<link href="css/awesomplete.css" rel="stylesheet">
-
+	
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.4/Chart.min.js"></script>
+	
+	
   </head>
 
   <body id="page-top">
@@ -71,7 +75,15 @@
       <div class="container">
         <div class="row">
           <div class="col-lg-8 mx-auto text-center">
-            <h2 class="section-heading text-white">Simply choose the coin you want to trade and find out where you get the best price.</h2>
+            <h2 class="section-heading text-white">Choose one out of 
+				<?php          
+					include ('..\settings\mysql\settings-db.php');
+					$sql = "SELECT COUNT(coin) AS count FROM coin";
+					$result = $conn->query($sql);
+					while ($row = $result->fetch_assoc()) 
+						{echo $row["count"];}				
+					$conn->close();
+			?> coins and find where you get the best price. Highest and lowest!</h2>
             <hr class="light my-4">
             <p class="text-faded mb-4">Once selected, simply press "Submit"</p>
 
@@ -102,10 +114,24 @@
       <div class="container">
         <div class="row">
           <div class="col-lg-8 mx-auto text-center">
-            <h2 class="section-heading">Missing exchange? Missing coin?</h2>
+            <h2 class="section-heading"><?php          
+					include ('..\settings\mysql\settings-db.php');
+					$sql = "SELECT COUNT(name) AS count FROM exchange";
+					$result = $conn->query($sql);
+					while ($row = $result->fetch_assoc()) 
+						{echo $row["count"];}				
+					$conn->close();
+			?> exchanges. <?php          
+					include ('..\settings\mysql\settings-db.php');
+					$sql = "SELECT COUNT(coin) AS count FROM coin";
+					$result = $conn->query($sql);
+					while ($row = $result->fetch_assoc()) 
+						{echo $row["count"];}				
+					$conn->close();
+			?> coins. Still not enough?</h2>
             <hr class="my-4">
-            <p class="mb-5">If we are missing a coin that is for sure on a exchange, wait 24 hours for the coin to show up. If its still not visible after, please send us a mail! <br /> <br />
-							You are running an exchange and want to get listed? Awesome! Please fill out this Google form!</p>
+            <p class="mb-5">If we are missing a freshly listed coin that is on a listed exchange, wait 24 hours for the coin to show up. If its still not visible after or you have any other problems, please fill the "support request" Google form! <br /> <br />
+							You are running an exchange and want to get listed? Awesome! Please fill out the "listing request" Google form!</p>
           </div>
         </div>
           <div class="col-lg-4 mr-auto text-center">

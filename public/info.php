@@ -5,8 +5,8 @@
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
+    <meta name="description" content="Cryptocurrency (e.g. Bitcoin - Litecoin) price information tool">
+    <meta name="author" content="miXe">
 
     <title>CoinPrice.io - Your coin price info</title>
 
@@ -58,11 +58,19 @@
       <div class="container">
         <div class="row">
           <div class="col-lg-8 mx-auto text-center">
-            <h2 class="section-heading text-white">Simply choose the coin you want to trade and find out where you get the best price.</h2>
+            <h2 class="section-heading text-white">Choose one out of 
+				<?php          
+					include ('..\settings\mysql\settings-db.php');
+					$sql = "SELECT COUNT(coin) AS count FROM coin";
+					$result = $conn->query($sql);
+					while ($row = $result->fetch_assoc()) 
+						{echo $row["count"];}				
+					$conn->close();
+			?> coins and find where you get the best price. Highest and lowest!</h2>
             <hr class="light my-4">
 			
-			<form class="formTest" action="" method="POST">
-			<input id="myinput" name="coin" class="awesomplete" 	
+			<form action="" method="POST">
+			<input id="myinput" name="coin" class="dropdown-input" placeholder="e.g. LTC, DASH, ..."	
 				<?php
 					include ('..\settings\mysql\settings-db.php');
 					$sql = "SELECT coin FROM coin"; 
@@ -77,20 +85,22 @@
 			<input type="submit" value="Submit" />	
 			</form>
 			
-		<div class="container">
+		
 			<?php
 			$coinsname = $_REQUEST['coin'];
 			if ($coinsname)
 			{
 			echo '
+			<div class="container">
 				<br />
-				<div>
-				<canvas id="myChart"></canvas>
-				</div>';
+					<div>
+						<canvas id="CoinChart"></canvas>
+					</div>
+			</div>';	
 			}
 			?> 
 		
-	</div>
+	
 			
           </div>
         </div>
@@ -142,9 +152,9 @@
   </table>
   
 	<script>
-			var ctx = document.getElementById("myChart").getContext('2d');
-				var myChart = new Chart(ctx, {
-				type: 'line',
+			var ctx = document.getElementById("CoinChart").getContext('2d');
+				var CoinChart = new Chart(ctx, {
+				type: 'bar',
 				data: {
 					labels: [<?php 
 								// Include db settings and make a connection
@@ -167,7 +177,7 @@
 									$conn->close();
 							?>],
 					datasets: [{
-					label: 'Price in BTC',
+					label: 'Price in USD',
 					data: [<?php 
 								// Include db settings and make a connection
 								include ('..\settings\mysql\settings-db.php');
@@ -179,22 +189,51 @@
 									$ex = $row["name"];
 									$exlink = $row["link"];
 									$exdisp = $row["displayname"];
-									$sql = "SELECT price_btc FROM $ex WHERE coin = '$coinsname' ORDER BY date DESC LIMIT 1;"; 
+									$sql = "SELECT price_usd FROM $ex WHERE coin = '$coinsname' ORDER BY date DESC LIMIT 1;"; 
 									$result = $conn->query($sql);
 									while ($row = $result->fetch_assoc())
 										{
-										echo '"'.$row["price_btc"].'",';
+										echo '"'.$row["price_usd"].'",';
 										}		
 									}
 									$conn->close();
-							?>],
-							
-
-						
-					backgroundColor: "rgba(153,255,51,1)"
-					
+							?>],						
+					backgroundColor: "rgba(255,255,255,0.5)",
+					hoverBackgroundColor: "rgba(255,255,255,0.8)",
 					}]
-				}
+				},
+				options: {
+					responsive: true,
+					legend: { 
+							display: true,
+							labels: {
+									fontColor: "white"	
+									}
+							}, // Close legend
+					title: {
+						display: false,
+						text: 'Not used yet'
+							}, //Close title
+					scales: {
+						yAxes: [
+								{
+								display: true,
+								ticks: {
+										fontColor: "white",
+										beginAtZero: false,
+										}
+								} 
+								], //Close yAxes
+						xAxes: [
+								{
+								display: true,
+								ticks: {
+										fontColor: "white",
+										}
+								} 
+								] //Close xAxes
+							} //Close scales
+						 } //Close options				
 				});
 	</script>
 </div>	
@@ -204,10 +243,24 @@
       <div class="container">
         <div class="row">
           <div class="col-lg-8 mx-auto text-center">
-            <h2 class="section-heading">Missing exchange? Missing coin?</h2>
+            <h2 class="section-heading"><?php          
+					include ('..\settings\mysql\settings-db.php');
+					$sql = "SELECT COUNT(name) AS count FROM exchange";
+					$result = $conn->query($sql);
+					while ($row = $result->fetch_assoc()) 
+						{echo $row["count"];}				
+					$conn->close();
+			?> exchanges. <?php          
+					include ('..\settings\mysql\settings-db.php');
+					$sql = "SELECT COUNT(coin) AS count FROM coin";
+					$result = $conn->query($sql);
+					while ($row = $result->fetch_assoc()) 
+						{echo $row["count"];}				
+					$conn->close();
+			?> coins. Still not enough?</h2>
             <hr class="my-4">
-            <p class="mb-5">If we are missing a coin that is for sure on a exchange, wait 24 hours for the coin to show up. If its still not visible after, please send us a mail! <br /> <br />
-							You are running an exchange and want to get listed? Awesome! Please fill out this Google form!</p>
+            <p class="mb-5">If we are missing a freshly listed coin that is on a listed exchange, wait 24 hours for the coin to show up. If its still not visible after or you have any other problems, please fill the "support request" Google form! <br /> <br />
+							You are running an exchange and want to get listed? Awesome! Please fill out the "listing request" Google form!</p>
           </div>
         </div>
           <div class="col-lg-4 mr-auto text-center">

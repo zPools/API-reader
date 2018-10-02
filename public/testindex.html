@@ -101,12 +101,12 @@
 	<script>
 			var ctx = document.getElementById("myChart").getContext('2d');
 				var myChart = new Chart(ctx, {
-				type: 'line',
+				type: 'bar',
 				data: {
-					labels: ["KuCoin", "SouthXchange", "Poloniex", "Crex24"],
+					labels: ["Crex24",],
 					datasets: [{
 					label: 'Price in BTC',
-					data: [0.0281000,0.0281542,0.02833,0.02877],
+					data: ["0.00005",],
 					backgroundColor: "rgba(153,255,51,1)"
 					
 					}]
@@ -116,7 +116,18 @@
 					title: {
 						display: false,
 						text: 'Not used yet'
-							} //Close title
+							}, //Close title
+					scales: {
+						yAxes: [
+								{
+								position: 'left',
+								display: true,
+								ticks: {
+										beginAtZero: true
+										}
+								} 
+								] //Close yAxes
+							} //Close scales
 						 } //Close options
 				});
 	</script>
