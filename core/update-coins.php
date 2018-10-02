@@ -1,6 +1,6 @@
 <?php
 // Include the mysql settings
-include('..\settings\mysql\settings-db.php');
+include('../settings/mysql/settings-db.php');
 // Update all available coins from every exchange and write that into "coin"
 // For now, its ok to have a dead coin on here because index will display an very old date
 // if the coin gets not traded anymore. In future we should ask for new coins and throw out not needed.

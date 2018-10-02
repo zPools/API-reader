@@ -1,6 +1,6 @@
 <?php
 // Include db settings and make a connection
-include ('..\settings\mysql\settings-db.php');
+include('../settings/mysql/settings-db.php');
 
 $sql = "SELECT name FROM exchange "; 
 $result = $conn->query($sql);

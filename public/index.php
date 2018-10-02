@@ -77,7 +77,7 @@
           <div class="col-lg-8 mx-auto text-center">
             <h2 class="section-heading text-white">Choose one out of 
 				<?php          
-					include ('..\settings\mysql\settings-db.php');
+					include('../settings/mysql/settings-db.php');
 					$sql = "SELECT COUNT(coin) AS count FROM coin";
 					$result = $conn->query($sql);
 					while ($row = $result->fetch_assoc()) 
@@ -115,14 +115,14 @@
         <div class="row">
           <div class="col-lg-8 mx-auto text-center">
             <h2 class="section-heading"><?php          
-					include ('..\settings\mysql\settings-db.php');
+					include('../settings/mysql/settings-db.php');
 					$sql = "SELECT COUNT(name) AS count FROM exchange";
 					$result = $conn->query($sql);
 					while ($row = $result->fetch_assoc()) 
 						{echo $row["count"];}				
 					$conn->close();
 			?> exchanges. <?php          
-					include ('..\settings\mysql\settings-db.php');
+					include('../settings/mysql/settings-db.php');
 					$sql = "SELECT COUNT(coin) AS count FROM coin";
 					$result = $conn->query($sql);
 					while ($row = $result->fetch_assoc()) 

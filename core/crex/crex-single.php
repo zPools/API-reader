@@ -2,7 +2,7 @@
 // Get the job out of the navigation (crex.php?coin=XYZ)
 $coinsname = $_REQUEST['coin'];
 // Load the database settings
-include ('..\settings\mysql\settings-db.php');
+include('../settings/mysql/settings-db.php');
 // Where do I get my SONO-JSON information from? 
 $url1 = "https://api.crex24.com/CryptoExchangeService/BotPublic/ReturnTicker?request=[NamePairs=BTC_$coinsname]";
 // Where do I get my BTC-JSON information from? 

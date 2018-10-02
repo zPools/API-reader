@@ -60,7 +60,7 @@
           <div class="col-lg-8 mx-auto text-center">
             <h2 class="section-heading text-white">Choose one out of 
 				<?php          
-					include ('..\settings\mysql\settings-db.php');
+					include('../settings/mysql/settings-db.php');
 					$sql = "SELECT COUNT(coin) AS count FROM coin";
 					$result = $conn->query($sql);
 					while ($row = $result->fetch_assoc()) 
@@ -72,7 +72,7 @@
 			<form action="" method="POST">
 			<input id="myinput" name="coin" class="dropdown-input" placeholder="e.g. LTC, DASH, ..."	
 				<?php
-					include ('..\settings\mysql\settings-db.php');
+					include('../settings/mysql/settings-db.php');
 					$sql = "SELECT coin FROM coin"; 
 					$result = $conn->query($sql);
 					echo 'data-list="';
@@ -124,7 +124,7 @@
     <tbody>
 		<?php
 		// Include db settings and make a connection
-		include ('..\settings\mysql\settings-db.php');
+		include('../settings/mysql/settings-db.php');
 		// Ask for all exchange we have (1st while) and echo their results (2nd while)
 		$sqlask = "SELECT name, link, displayname FROM exchange";
 		$resultask = $conn->query($sqlask);
@@ -158,7 +158,7 @@
 				data: {
 					labels: [<?php 
 								// Include db settings and make a connection
-								include ('..\settings\mysql\settings-db.php');
+								include('../settings/mysql/settings-db.php');
 								// Ask for all exchange we have (1st while) and echo their results (2nd while)
 								$sqlask = "SELECT name, link, displayname FROM exchange";
 								$resultask = $conn->query($sqlask);
@@ -180,7 +180,7 @@
 					label: 'Price in USD',
 					data: [<?php 
 								// Include db settings and make a connection
-								include ('..\settings\mysql\settings-db.php');
+								include('../settings/mysql/settings-db.php');
 								// Ask for all exchange we have (1st while) and echo their results (2nd while)
 								$sqlask = "SELECT name, link, displayname FROM exchange";
 								$resultask = $conn->query($sqlask);
@@ -244,14 +244,14 @@
         <div class="row">
           <div class="col-lg-8 mx-auto text-center">
             <h2 class="section-heading"><?php          
-					include ('..\settings\mysql\settings-db.php');
+					include('../settings/mysql/settings-db.php');
 					$sql = "SELECT COUNT(name) AS count FROM exchange";
 					$result = $conn->query($sql);
 					while ($row = $result->fetch_assoc()) 
 						{echo $row["count"];}				
 					$conn->close();
 			?> exchanges. <?php          
-					include ('..\settings\mysql\settings-db.php');
+					include('../settings/mysql/settings-db.php');
 					$sql = "SELECT COUNT(coin) AS count FROM coin";
 					$result = $conn->query($sql);
 					while ($row = $result->fetch_assoc()) 
