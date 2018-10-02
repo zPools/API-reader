@@ -157,7 +157,5 @@
     <script src="js/creative.min.js"></script>
 	
 	<script src="js/awesomplete.js" async></script>
-
   </body>
-
 </html>
