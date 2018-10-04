@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
-
   <head>
-<?php include('static/head'); ?>
+	<?php include('static/head');?>
   </head>
 
   <body id="page-top">
@@ -62,7 +61,7 @@
 			<form action="info.php" method="">
 			<select name="coin"> 			
 			<?php
-			include('..\settings\mysql\settings-db.php');
+			include('../settings/mysql/settings-db.php');
 			$coinsname = $_REQUEST['coin'];	
             // SQL-Query
             $sql = "SELECT coin FROM coin"; 

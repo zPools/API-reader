@@ -1,10 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
-
   <head>
-<?php include('static/head'); ?>
+	<?php include('static/head');?>
   </head>
-
+  
   <body id="page-top">
 
     <!-- Navigation -->
