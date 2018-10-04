@@ -2,35 +2,7 @@
 <html lang="en">
 
   <head>
-
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="Cryptocurrency (e.g. Bitcoin - Litecoin) price information tool">
-    <meta name="author" content="miXe">
-
-    <title>CoinPrice.io - Your coin price info</title>
-
-    <!-- Bootstrap core CSS -->
-    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- Custom fonts for this template -->
-    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
-    <link href='https://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
-
-    <!-- Plugin CSS -->
-    <link href="vendor/magnific-popup/magnific-popup.css" rel="stylesheet">
-
-    <!-- Custom styles for this template -->
-    <link href="css/creative.min.css" rel="stylesheet">
-	
-	<!-- Insert awesomecomplete -->
-	<link href="css/awesomplete.base.css" rel="stylesheet">
-	<link href="css/awesomplete.css" rel="stylesheet">
-	
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.4/Chart.min.js"></script>
-	
-	
+<?php include('static/head'); ?>
   </head>
 
   <body id="page-top">

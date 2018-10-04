@@ -17,9 +17,9 @@ foreach ($json ["data"] as $key => $value)
 		$price = $value["lastDealPrice"];
 		$coinsname = $value["symbol"];
 		$priceUSD = $price * $price2;
-		$ch = curl_init("http://127.0.0.1:8090/core/write-sql.php?ex=$ex&coin=$coinsname&price=$price&usd=$priceUSD");
+		$ch = curl_init("http://127.0.0.1:8080/core/write-sql.php?ex=$ex&coin=$coinsname&price=$price&usd=$priceUSD");
 		curl_exec($ch);
 	}
-$ch2 = curl_init ("http://127.0.0.1:8090/core/clean-db.php?ex=$ex");
+$ch2 = curl_init ("http://127.0.0.1:8080/core/clean-db.php?ex=$ex");
 curl_exec($ch2);
 ?>

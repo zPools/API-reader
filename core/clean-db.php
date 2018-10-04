@@ -133,3 +133,4 @@ if ($conn->query($sqldel17) === TRUE)
 else 
 	{echo "Error: " . $sqldel17 . "<br>" . $conn->error;}	
 $conn->close();
+?>

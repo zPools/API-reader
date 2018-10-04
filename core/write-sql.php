@@ -24,12 +24,13 @@ $date = date('Y/m/d H:i:s');
 $sqlwr = "INSERT INTO $exchange (pull, coin, price_btc, price_usd, date)
 VALUES ('$update', '$coinsname', '$price1', '$priceUSD', '$date')";
 // Echo if success or throw error
-if ($conn->query($sqlwr) === TRUE) {
-    echo " SUCCESS <br /> Exchange : $exchange <br /> ID: $update <br /> COIN -> $coinsname <br /> price in btc -> ";
+if ($conn->query($sqlwr) === TRUE) 
+	{
+	echo " SUCCESS <br /> \n Exchange : $exchange <br />\n ID: $update <br />\n COIN -> $coinsname <br />\n price in btc -> ";
 	echo sprintf('%0.8f', $price1);
-	echo "<br /> price in usd -> $priceUSD <br />date -> $date <br /> <br />";
-} else {
-    echo "Error: " . $sqlwr . "<br>" . $conn->error;
-}
+	echo "<br />\n price in usd -> $priceUSD <br />\n date -> $date <br />\n  <br />\n";
+	} 
+else 
+	{echo "Error: " . $sqlwr . "<br>" . $conn->error;}
 $conn->close();
 ?>

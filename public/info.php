@@ -2,35 +2,7 @@
 <html lang="en">
 
   <head>
-
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="Cryptocurrency (e.g. Bitcoin - Litecoin) price information tool">
-    <meta name="author" content="miXe">
-
-    <title>CoinPrice.io - Your coin price info</title>
-
-    <!-- Bootstrap core CSS -->
-    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- Custom fonts for this template -->
-    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
-    <link href='https://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
-
-    <!-- Plugin CSS -->
-    <link href="vendor/magnific-popup/magnific-popup.css" rel="stylesheet">
-
-    <!-- Custom styles for this template -->
-    <link href="css/creative.min.css" rel="stylesheet">
-	
-	<!-- Insert awesomecomplete -->
-	<link href="css/awesomplete.base.css" rel="stylesheet">
-	<link href="css/awesomplete.css" rel="stylesheet">
-	
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.4/Chart.min.js"></script>
-	
-	
+<?php include('static/head'); ?>
   </head>
 
   <body id="page-top">
@@ -70,7 +42,7 @@
             <hr class="light my-4">
 			
 			<form action="" method="POST">
-			<input id="myinput" name="coin" class="dropdown-input" placeholder="e.g. LTC, DASH, ..."	
+			<input id="myinput" name="coin" class="awesomplete" placeholder="e.g. LTC, DASH, ..."	
 				<?php
 					include('../settings/mysql/settings-db.php');
 					$sql = "SELECT coin FROM coin"; 
@@ -80,45 +52,36 @@
 					while ($row = $result->fetch_assoc()) 
 						{echo ($row["coin"].", ");}
 					$conn->close();
-				?> 
-				"/>	
+				?>"/>	
 			<input type="submit" value="Submit" />	
-			</form>
-			
-		
+			</form>		
 			<?php
 			$coinsname = $_REQUEST['coin'];
 			if ($coinsname)
-			{
-			echo '
-			<div class="container">
-				<br />
-					<div>
-						<canvas id="CoinChart"></canvas>
-					</div>
-			</div>';	
-			}
-			?> 
-		
-	
-			
+				{echo '<br/>
+				<p class="text-uppercase text-white">'.$coinsname.'</p>';}            
+			if ($coinsname)
+				{
+				echo '
+				<div class="container">
+					<br />
+						<div>
+							<canvas id="CoinChart"></canvas>
+						</div>
+				</div>';	
+				}
+			?> 			
           </div>
-        </div>
-
-		
-<div class="container">
-  <?php
-  $coinsname = $_REQUEST['coin'];
-  echo '<h2 class="section-heading text-white">'.$coinsname.'</h2>'; 
-  ?>            
-  
-  <table class="table table-hover">
+        </div>	
+<div class="container"> 
+  <br/>
+  <table id="dataTable" class="table table-striped table-hover table-bordered ">
     <thead>
       <tr>
-        <th><p class="text-faded mb-4">Price in BTC:</p></th>
-        <th><p class="text-faded mb-4">Price in USD:</p></th>
-        <th><p class="text-faded mb-4">On Exchange:</p></th>
-		<th><p class="text-faded mb-4">Last updated:</p></th>
+        <th><p class="text-white">Price in BTC:</p></th>
+        <th><p class="text-white">Price in USD:</p></th>
+        <th><p class="text-white">On Exchange:</p></th>
+		<th><p class="text-white">Last updated:</p></th>
       </tr>
     </thead>
     <tbody>
@@ -139,10 +102,10 @@
 				{
 				$time = strtotime($row["date"]);	
 				echo "<tr>";
-				echo "<td><a target='_blank' href='".$exlink."'><p class='text-faded mb-4'>".$row["price_btc"]."</p></a></td>";
-				echo "<td><a target='_blank' href='".$exlink."'><p class='text-faded mb-4'>".$row["price_usd"]."</p></a></td>";
-				echo "<td><a target='_blank' href='".$exlink."'><p class='text-faded mb-4'>".$exdisp."</p></a></td>";
-				echo "<td><a target='_blank' href='".$exlink."'><p class='text-faded mb-4'>".'Last update was '.humanTiming($time).' ago'."</p></a></td>";
+				echo "<td><a target='_blank' href='".$exlink."' class='text-white'>".$row["price_btc"]."</a></td>";
+				echo "<td><a target='_blank' href='".$exlink."' class='text-white'>".$row["price_usd"]."</a></td>";
+				echo "<td><a target='_blank' href='".$exlink."' class='text-white'>".$exdisp."</a></td>";
+				echo "<td><a target='_blank' href='".$exlink."' class='text-white'>".'Last update was '.humanTiming($time).' ago'."</a></td>";
 				echo "</tr></a>";
 				}		
 			}
@@ -150,7 +113,6 @@
 		?>
     </tbody>
   </table>
-  
 	<script>
 			var ctx = document.getElementById("CoinChart").getContext('2d');
 				var CoinChart = new Chart(ctx, {
@@ -284,11 +246,28 @@
 
     <!-- Custom scripts for this template -->
     <script src="js/creative.min.js"></script>
+	
+	<!-- Script for awesomeplete -->
 	<script src="js/awesomplete.js" async></script>
 	
-	
+	<!-- Script for DataTables -->
+	<script type="text/javascript" src="//cdn.datatables.net/v/bs4/dt-1.10.16/datatables.min.js"></script>
 
   </body>
+  
+	<script type="text/javascript">
+	function precisionRound(number, precision) {
+        var factor = Math.pow(10, precision+1);
+        return Math.floor(Math.round(number * factor)/10) / (Math.pow(10, precision));
+    }
+
+	$(document).ready(function(){
+		var block_table = $('#dataTable').DataTable({
+			order: [[ 0, 'desc' ]]
+		});
+		
+	});
+	</script>
 <?php
 function humanTiming ($time)
 	{					
