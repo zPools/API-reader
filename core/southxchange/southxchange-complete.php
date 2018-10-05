@@ -11,15 +11,30 @@ $json = json_decode(file_get_contents($url), true);
 $json2 = json_decode(file_get_contents($url2), true);
 // Where do I get my USD-BTC value from? "0" is for a [ bracket (key)
 $price2 = $json2["Tickers"] ["0"] ["Last"];
+
+// Set timezone and set variable date with current date
+date_default_timezone_set('Europe/Berlin');
+$date = date('Y/m/d H:i:s');
+
+include('../../settings/mysql/settings-db.php');
 // Go through every key from "Tickers" and set PairName as $coinsname and Last as $price
 foreach ($json as $key => $value) 
 	{
 		$price = $value["Last"];
 		$coinsname = $value["Market"];
 		$priceUSD = $price * $price2;
-		$ch = curl_init("http://127.0.0.1:8090/core/write-sql.php?ex=$ex&coin=$coinsname&price=$price&usd=$priceUSD");
-		curl_exec($ch);
-	}
+		$sqlwr =   "INSERT INTO $ex (coin, price_btc, price_usd, date)
+					VALUES ('$coinsname', '$price', '$priceUSD', '$date')";
+		if ($conn->query($sqlwr) === TRUE)
+			{
+			echo " SUCCESS <br /> \n Exchange : $ex <br />\n COIN -> $coinsname <br />\n price in btc -> ";
+			echo sprintf('%0.8f', $price);
+			echo "<br />\n price in usd -> $priceUSD <br />\n date -> $date <br />\n  <br />\n";
+			}
+		else 
+			{echo "Error: " . $sqlwr . "<br>" . $conn->error;}
+	} 			
 $ch2 = curl_init ("http://127.0.0.1:8090/core/clean-db.php?ex=$ex");
 curl_exec($ch2);
+$conn->close();
 ?>
