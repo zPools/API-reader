@@ -74,7 +74,15 @@
         </div>	
 <div class="container"> 
   <br/>
-  <table id="dataTable" class="table table-striped table-hover table-bordered ">
+  <?php 
+	require_once "static/libs/Mobile_Detect.php";	
+	$detect = new Mobile_Detect;
+	
+	if ( $detect->isMobile() )
+	{echo '<table id="dataTable" class="table table-striped table-responsive table-hover table-bordered ">';}
+  else
+	{echo '<table id="dataTable" class="table table-striped table-hover table-bordered ">';}
+  ?>
     <thead>
       <tr>
         <th><p class="text-white">Price in BTC:</p></th>
@@ -104,7 +112,7 @@
 				echo "<td><a target='_blank' href='".$exlink."' class='text-white'>".$row["price_btc"]."</a></td>";
 				echo "<td><a target='_blank' href='".$exlink."' class='text-white'>".$row["price_usd"]."</a></td>";
 				echo "<td><a target='_blank' href='".$exlink."' class='text-white'>".$exdisp."</a></td>";
-				echo "<td><a target='_blank' href='".$exlink."' class='text-white'>".'Last update was '.humanTiming($time).' ago'."</a></td>";
+				echo "<td><a target='_blank' href='".$exlink."' class='text-white'>".humanTiming($time).' ago'."</a></td>";
 				echo "</tr></a>";
 				}		
 			}
@@ -262,7 +270,8 @@
 
 	$(document).ready(function(){
 		var block_table = $('#dataTable').DataTable({
-			order: [[ 0, 'desc' ]]
+			order: [[ 0, 'desc' ]],
+			searching: false
 		});
 		
 	});
