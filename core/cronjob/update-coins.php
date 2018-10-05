@@ -15,7 +15,7 @@ while ($row = $resultask->fetch_assoc())
 		$newcoin = $row["coin"];
 		$sqlcoin = "INSERT IGNORE INTO coin SET coin = '$newcoin'"; 
 		if ($conn->query($sqlcoin) === TRUE) {	
-			echo "INSERTED $newcoin <br />";
+			echo "INSERTED $newcoin <br />\n";
 		} else {
 			echo "Error: " . $sqlcoin . "<br>" . $conn->error;
 		}
