@@ -1,6 +1,18 @@
 
-	<title>CoinPrice.io - Your coin price info</title>
+	<?php
+					$coinsname = $_REQUEST['coin'];				
+					if ($coinsname)
+					{
+						echo '<title>Coin-Price.com - '.$coinsname.' exchange information</title>'.PHP_EOL;
 
+						echo '	<meta property="og:title" content="Coin-Price.com - '.$coinsname.' exchange information">'.PHP_EOL;
+					}
+					else
+					{
+						echo "<title>Coin-Price.com - Your coin price information tool</title>".PHP_EOL;
+						echo '	<meta property="og:title" content="Coin-Price.com - Your coin price info">'.PHP_EOL;					
+					}
+	?>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="Cryptocurrency (e.g. Bitcoin, Litecoin, DASH) price information tool for multiple exchanges.">
@@ -20,7 +32,7 @@
     <link rel="mask-icon" href="/assets/images/safari-pinned-tab.svg" color="#343a40">
 	-->
     
-	<meta property="og:title" content="CoinPrice.io - Your coin price info">
+	
 	<meta property="og:type" content="website">
 	<meta property="og:description" content="Cryptocurrency (e.g. Bitcoin, Litecoin, DASH) price information tool for multiple exchanges.">
 	<meta property="og:image" content="http://zPools.de:8090/public/img/head/logo.png">

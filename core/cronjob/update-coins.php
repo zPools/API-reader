@@ -1,5 +1,5 @@
 <?php
-include('../settings/mysql/settings-db.php');
+include('../../settings/mysql/settings-db.php');
 // Update all available coins from every exchange and write that into "coin"
 // For now, its ok to have a dead coin on here because info will not display it because the last update is older than 12 hour.
 // if the coin gets not traded anymore. In future we should ask for new coins and throw out not needed.

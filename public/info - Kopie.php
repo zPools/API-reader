@@ -29,21 +29,19 @@
       <div class="container">
         <div class="row">
           <div class="col-lg-8 mx-auto text-center">
-            <h1 class="section-heading text-white">  
-				<?php
-					$coinsname = $_REQUEST['coin'];				
-					if ($coinsname)
-					{
-						echo 'Current coin prices for '.$coinsname.'</h1>';
-					}
-					else 
-						echo 'Choose a coin below for its trading informations </h1>';
-
-			?>
+            <h2 class="section-heading text-white">Choose one out of 
+				<?php          
+					include('../settings/mysql/settings-db.php');
+					$sql = "SELECT COUNT(coin) AS count FROM coin";
+					$result = $conn->query($sql);
+					while ($row = $result->fetch_assoc()) 
+						{echo $row["count"];}				
+					$conn->close();
+			?> coins and find where you get the best price. Highest and lowest!</h2>
             <hr class="light my-4">
 			
 			<form action="" method="POST">
-			<input placeholder="Search" id="myinput" name="coin" class="awesomplete" 	
+			<input id="myinput" name="coin" class="awesomplete" placeholder="e.g. LTC, DASH, ..."	
 				<?php
 					include('../settings/mysql/settings-db.php');
 					$sql = "SELECT coin FROM coin"; 
@@ -57,7 +55,10 @@
 			<input type="submit" value="Submit" />	
 			</form>		
 			<?php
-			$coinsname = $_REQUEST['coin'];         
+			$coinsname = $_REQUEST['coin'];
+			if ($coinsname)
+				{echo '<br/>
+				<p class="text-uppercase text-white">'.$coinsname.'</p>';}            
 			if ($coinsname)
 				{
 				echo '

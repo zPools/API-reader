@@ -9,7 +9,7 @@
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
       <div class="container">
-        <a class="navbar-brand js-scroll-trigger" href="#page-top">CoinPrice.io</a>
+        <a class="navbar-brand js-scroll-trigger" href="#page-top">Coin-Price.com</a>
         <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -36,7 +36,7 @@
             <hr>
           </div>
           <div class="col-lg-8 mx-auto">
-            <p class="text-faded mb-5">Start using Coin Price Info helps you to get the most profit out of your trades. It is as easy as select your coin you want to trade and find out where you get the best price. Buy and sell.</p>
+            <p class="text-faded mb-5">Start using Coin-Price.com helps you to get the most profit out of your trades. It is as easy as select the coin you want to trade and find where you get the best price.</p>
             <a class="btn btn-primary btn-xl js-scroll-trigger" href="#about">Start using - for free</a>
           </div>
         </div>
