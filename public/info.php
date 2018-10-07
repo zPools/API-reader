@@ -9,7 +9,7 @@
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
       <div class="container">
-        <a class="navbar-brand js-scroll-trigger" href="index.php">Coin-Price.com</a>
+        <a class="navbar-brand js-scroll-trigger" href="index.php">AltCoinPrice.io</a>
         <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -33,17 +33,14 @@
 				<?php
 					$coinsname = $_REQUEST['coin'];				
 					if ($coinsname)
-					{
-						echo 'Current coin prices for '.$coinsname.'</h1>';
-					}
+						{echo 'Current exchange prices for '.$coinsname.'</h1>';}					
 					else 
-						echo 'Choose a coin below for its trading informations </h1>';
-
+						{echo 'Choose a coin below for its trading informations </h1>';}
 			?>
             <hr class="light my-4">
 			
 			<form action="" method="POST">
-			<input placeholder="Search" id="myinput" name="coin" class="awesomplete" 	
+			<input placeholder="Search for other coins" id="myinput" name="coin" class="awesomplete" 	
 				<?php
 					include('../settings/mysql/settings-db.php');
 					$sql = "SELECT coin FROM coin"; 

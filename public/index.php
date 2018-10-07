@@ -36,7 +36,7 @@
             <hr>
           </div>
           <div class="col-lg-8 mx-auto">
-            <p class="text-faded mb-5">Start using Coin-Price.com helps you to get the most profit out of your trades. It is as easy as select the coin you want to trade and find where you get the best price.</p>
+            <p class="text-faded mb-5">Start using AltCoinPrice.io helps you to get the most profit out of your trades. It is as easy as select the coin you want to trade and find where you get the best price.</p>
             <a class="btn btn-primary btn-xl js-scroll-trigger" href="#about">Start using - for free</a>
           </div>
         </div>

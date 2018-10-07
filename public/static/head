@@ -62,5 +62,3 @@
 	
 	<!-- DataTables CSS -->
 	<link rel="stylesheet" href="//cdn.datatables.net/v/bs4/dt-1.10.16/datatables.min.css"/>
-
-	
