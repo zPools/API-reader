@@ -9,7 +9,7 @@ $json2 = json_decode(file_get_contents($url2), true);
 $price2 = $json2["Tickers"] ["0"] ["Last"];
 date_default_timezone_set('Europe/Berlin');
 $date = date('Y/m/d H:i:s');
-include('/var/www/html/API-reader/settings/mysql/settings-db.php')
+include('/var/www/html/API-reader/settings/mysql/settings-db.php');
 foreach ($json["markets"] as $key => $value) 
 	{
 	//Nova has low volume, so we need to set "bid" that users get a proper value

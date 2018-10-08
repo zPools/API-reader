@@ -1,6 +1,6 @@
 <?php
 // Include the mysql settings
-include('/var/www/html/API-reader/settings/mysql/settings-db.php')
+include('/var/www/html/API-reader/settings/mysql/settings-db.php');
 // Get the job out of the exchange out of the navigation
 $exchange = $_REQUEST['ex'];
 // Delete data from database "currently we only need btc price"	
