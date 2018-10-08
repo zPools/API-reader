@@ -1,5 +1,5 @@
 <?php
-include('../settings/mysql/settings-db.php');
+include('/var/www/html/API-reader/settings/mysql/settings-db.php')
 $sql = "SELECT name FROM exchange "; 
 $result = $conn->query($sql);
 while ($row = $result->fetch_assoc())
