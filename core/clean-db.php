@@ -25,7 +25,36 @@ $sqldel16 = "DELETE FROM $exchange WHERE `coin` REGEXP '\w*/TUSD' OR `coin` REGE
 $sqldel18 = "DELETE FROM $exchange WHERE `coin` REGEXP '\w*-NEO' OR `coin` REGEXP '\w*-ETH' OR `coin` REGEXP '\w*-KCS'";
 $sqldel17 = "UPDATE $exchange SET `coin` = CONCAT(LEFT(`coin`, CHAR_LENGTH(`coin`) -4), '') WHERE `coin` REGEXP '\w*/BTC' OR `coin` REGEXP '\w*-BTC'";
 
+//Cryptopia
+$sqldel19 = "DELETE FROM $exchange WHERE `coin` REGEXP '\w*/LTC ' OR `coin` REGEXP '\w*/DOGE' OR `coin` REGEXP '\w*/USDT' OR `coin` REGEXP '\w*/NZDT'";
+if ($exchange ==='crypt')
+{
+	if ($conn->query($sqldel19) === TRUE) 
+		{echo "Crypt cleaning complete<br />";} 
+	else 
+		{echo "Error: " . $sqldel19 . "<br>" . $conn->error;}
+}
+//Stex
+$sqldel20 = "DELETE FROM $exchange WHERE `coin` REGEXP '\w*_LTC' OR `coin` REGEXP '\w*_ETH' OR `coin` REGEXP '\w*_NXT' OR `coin` REGEXP '\w*_USD' OR `coin` REGEXP '\w*_JPY' OR `coin` REGEXP '\w*_USDT' OR `coin` REGEXP '\w*_EUR'";
+$sqldel21 = "UPDATE $exchange SET `coin` = CONCAT(LEFT(`coin`, CHAR_LENGTH(`coin`) -4), '') WHERE `coin` REGEXP '\w*_BTC'";
+if ($exchange ==='stex')
+{
+	if ($conn->query($sqldel20) === TRUE) 
+		{echo "Stex cleaning complete<br />";} 
+	else 
+		{echo "Error: " . $sqldel20 . "<br>" . $conn->error;}
+		
+	if ($conn->query($sqldel21) === TRUE) 
+		{echo "Stex naming complete<br />";} 
+	else 
+		{echo "Error: " . $sqldel20 . "<br>" . $conn->error;}
+}
 
+
+
+//Every other
+if ($exchange !='stex')
+{
 if ($conn->query($sqldel1) === TRUE) 
 	{echo "SUCCESSFULLY CLEANED ETH from $exchange <br />";} 
 else 
@@ -132,5 +161,6 @@ if ($conn->query($sqldel17) === TRUE)
 	{echo "SUCCESSFULLY CHANGED SPECIALNAMES in $exchange <br />";} 
 else 
 	{echo "Error: " . $sqldel17 . "<br>" . $conn->error;}	
+}
 $conn->close();
 ?>

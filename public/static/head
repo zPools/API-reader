@@ -3,14 +3,14 @@
 					$coinsname = $_REQUEST['coin'];				
 					if ($coinsname)
 					{
-						echo '<title>Coin-Price.com - '.$coinsname.' exchange information</title>'.PHP_EOL;
+						echo '<title>AltCoinPrice.io - '.$coinsname.' exchange prices</title>'.PHP_EOL;
 
-						echo '	<meta property="og:title" content="Coin-Price.com - '.$coinsname.' exchange information">'.PHP_EOL;
+						echo '	<meta property="og:title" content="AltCoinPrice.io - '.$coinsname.' exchange prices">'.PHP_EOL;
 					}
 					else
 					{
-						echo "<title>Coin-Price.com - Your coin price information tool</title>".PHP_EOL;
-						echo '	<meta property="og:title" content="Coin-Price.com - Your coin price info">'.PHP_EOL;					
+						echo "<title>AltCoinPrice.io - Your coin price information tool</title>".PHP_EOL;
+						echo '	<meta property="og:title" content="AltCoinPrice.io - Your coin price information tool">'.PHP_EOL;					
 					}
 	?>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />

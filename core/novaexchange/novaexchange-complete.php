@@ -12,7 +12,8 @@ $date = date('Y/m/d H:i:s');
 include('../../settings/mysql/settings-db.php');
 foreach ($json["markets"] as $key => $value) 
 	{
-	$price = $value["last_price"];
+	//Nova has low volume, so we need to set "bid" that users get a proper value
+	$price = $value["bid"];
 	$coinsname = $value["currency"];
 	$priceUSD = $price * $price2;
 	//Nova has a field called basecurrency. This can be used to filter it.
