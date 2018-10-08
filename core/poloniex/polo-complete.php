@@ -16,7 +16,7 @@ $price2 = $json2["Tickers"] ["0"] ["Last"];
 date_default_timezone_set('Europe/Berlin');
 $date = date('Y/m/d H:i:s');
 
-include('../../settings/mysql/settings-db.php');
+include('/var/www/html/API-reader/settings/mysql/settings-db.php')
 // Go through every key from "Tickers" and set $key as $coinsname and last as $price 
 foreach ($json as $key => $value) 
 	{
