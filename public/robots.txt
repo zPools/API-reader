@@ -1,0 +1,6 @@
+User-agent: *
+#YOU SHALL NOT PASS (these)#
+Disallow: /vendor
+Disallow: /js
+Disallow: /creative
+Disallow: /css

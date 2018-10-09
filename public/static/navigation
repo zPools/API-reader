@@ -1,0 +1,37 @@
+      <div class="container">
+        <a class="navbar-brand js-scroll-trigger" href="index.php">AltCoinPrice.io</a>
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+			<?php
+			  if ($GLOBALS["where"] === 'info')
+              {echo '<a class="nav-link js-scroll-trigger" href="#AltCoinPrice">Price Info</a>';}
+			  else
+			  {echo '<a class="nav-link js-scroll-trigger" href="info.php#AltCoinPrice">Price Info</a>';}
+			  ?>
+            </li>
+            <li class="nav-item">
+			<?php
+			  if ($GLOBALS["where"] === 'allcoins')
+              {echo '<a class="nav-link js-scroll-trigger" href="#AllCoins">Listed Coins</a>';}
+			  else
+			  {echo '<a class="nav-link js-scroll-trigger" href="allcoins.php#AllCoins">Listed Coins</a>';}
+			  ?>              
+            </li>
+            <li class="nav-item">
+			<?php
+			  if ($GLOBALS["where"] === 'allexchanges')
+              {echo '<a class="nav-link js-scroll-trigger" href="#AllExchanges">Listed Exchanges</a>';}
+			  else
+			  {echo '<a class="nav-link js-scroll-trigger" href="allexchanges.php#AllExchanges">Listed Exchanges</a>';}
+			  ?>              
+            </li>			
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="#contact">Contact</a>
+            </li>			
+          </ul>
+        </div>
+      </div>

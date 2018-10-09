@@ -35,7 +35,7 @@ if ($exchange ==='crypt')
 		{echo "Error: " . $sqldel19 . "<br>" . $conn->error;}
 }
 //Stex
-$sqldel20 = "DELETE FROM $exchange WHERE `coin` REGEXP '\w*_LTC' OR `coin` REGEXP '\w*_ETH' OR `coin` REGEXP '\w*_NXT' OR `coin` REGEXP '\w*_USD' OR `coin` REGEXP '\w*_JPY' OR `coin` REGEXP '\w*_USDT' OR `coin` REGEXP '\w*_EUR'";
+$sqldel20 = "DELETE FROM $exchange WHERE `coin` REGEXP '\w*_LTC' OR `coin` REGEXP '\w*_ETH' OR `coin` REGEXP '\w*_NXT' OR `coin` REGEXP '\w*_USD' OR `coin` REGEXP '\w*_JPY' OR `coin` REGEXP '\w*_USDT' OR `coin` REGEXP '\w*_EUR' OR `coin` REGEXP '\w*_RUB'";
 $sqldel21 = "UPDATE $exchange SET `coin` = CONCAT(LEFT(`coin`, CHAR_LENGTH(`coin`) -4), '') WHERE `coin` REGEXP '\w*_BTC'";
 if ($exchange ==='stex')
 {

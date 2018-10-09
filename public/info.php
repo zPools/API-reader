@@ -1,29 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-	<?php include('static/head');?>
+	<?php 
+	$GLOBALS["where"] = 'info';
+	include('static/head');?>
   </head>
   
   <body id="page-top">
 
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
-      <div class="container">
-        <a class="navbar-brand js-scroll-trigger" href="index.php">AltCoinPrice.io</a>
-        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarResponsive">
-          <ul class="navbar-nav ml-auto">
-            <li class="nav-item">
-              <a class="nav-link js-scroll-trigger" href="#AltCoinPrice">Price Info</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link js-scroll-trigger" href="#contact">Contact</a>
-            </li>
-          </ul>
-        </div>
-      </div>
+	<?php
+	$GLOBALS["where"] = 'info';	
+	include('static/navigation');?>
     </nav>
 			<?php
 			//Global PHP
@@ -72,7 +61,7 @@
             <hr>
           </div>
           <div class="col-lg-8 mx-auto">
-            <p class="text-faded mb-5">The coin price engine found <strong><?php echo $coinsname; ?></strong> on <?php echo $selectcoincount;?> out of our <?php echo $exchangecount?> exchanges. Click on the button to find those exchanges on a table. Sort this table to fit your needs!</p>
+            <p class="text-faded mb-5">The coin price engine found <strong><?php echo $coinsname; ?></strong> on <?php echo $selectcoincount;?> of our <?php echo $exchangecount?> listed exchanges. Click on the button to find those exchanges on a table. Sort this table to fit your needs!</p>
             <a class="btn btn-primary btn-xl js-scroll-trigger" href="#AltCoinPrice">Show exchange informations</a>
           </div>
         </div>
@@ -108,7 +97,7 @@
 					while ($row = $result->fetch_assoc()) 
 						{echo ($row["coin"].", ");}
 					$conn->close();
-				?>"/>	
+				?>" />	
 			<input type="submit" value="Submit" />	
 			</form>	
 			<hr class="light my-4">			

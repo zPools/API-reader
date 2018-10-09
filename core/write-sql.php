@@ -1,6 +1,6 @@
 <?php
 // Include the mysql settings
-include('../settings/mysql/settings-db.php');
+include('/var/www/html/API-reader/settings/mysql/settings-db.php');
 // Get the job out of the navigation (exchange.php?ex=crex&coin=XYZ&price=0.1234567890&usd=0.123123123)
 $exchange = $_REQUEST['ex'];
 $coinsname = $_REQUEST['coin'];
