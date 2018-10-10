@@ -61,7 +61,7 @@
             <hr>
           </div>
           <div class="col-lg-8 mx-auto">
-            <p class="text-faded mb-5">The coin price engine found <strong><?php echo $coinsname; ?></strong> on <?php echo $selectcoincount;?> of our <?php echo $exchangecount?> listed exchanges. Click on the button to find those exchanges on a table. Sort this table to fit your needs!</p>
+            <p class="text-faded mb-5">The coin price engine found <strong><?php echo $coinsname; ?></strong> on <?php echo $selectcoincount;?> of <?php echo $exchangecount?> listed exchanges. Click on the button to see the coins exchange rate to bitcoin. You are able to sort the list in ascending and descending order to find the best price for your altcoin.</p>
             <a class="btn btn-primary btn-xl js-scroll-trigger" href="#AltCoinPrice">Show exchange informations</a>
           </div>
         </div>
@@ -98,7 +98,7 @@
 						{echo ($row["coin"].", ");}
 					$conn->close();
 				?>" />	
-			<input type="submit" value="Submit" />	
+			<input class='btn btn-primary btn-xl js-scroll-trigger' type="submit" value="Submit" />	
 			</form>	
 			<hr class="light my-4">			
 			<?php
@@ -257,7 +257,13 @@
 							} //Close scales
 						 } //Close options				
 				});
+		
 	</script>
+	<div class="table-responsive mt-3 mb-3 text-center text-white">
+	<p class="mb-5">You can directly link to this site using following link:<br>
+	<br>
+	<a target='_blank' href='http://AltCoinPrice.io/info.php?coin=<?php echo $coinsname; ?>' class='text-white'>http://AltCoinPrice.io/info.php?coin=<?php echo $coinsname; ?></a></p>
+	</div>
 </div>	
 	  
     </section>

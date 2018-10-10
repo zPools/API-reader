@@ -45,7 +45,7 @@
             <hr class="light my-4">
             <p class="text-faded mb-4">Once selected, simply press "Submit"</p>
 
-			<form action="info.php" method="">
+			<form action="info.php" method="POST">
 			<select name="coin"> 			
 			<?php
 			include('../settings/mysql/settings-db.php');

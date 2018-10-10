@@ -48,7 +48,7 @@
 <div class="container">
         <div class="row">
           <div class="col-lg-8 mx-auto text-center">
-		<form action="" method="POST">
+		<form action="info.php" method="POST">
 			<input placeholder="Better use this search :)" id="myinput" name="coin" class="awesomplete" 	
 				<?php
 					include('../settings/mysql/settings-db.php');
