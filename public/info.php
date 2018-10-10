@@ -73,12 +73,21 @@
           <div class="col-lg-8 mx-auto text-center">
 		<div class="row">
           <div class="col-lg-10 mx-auto">
-            <h2 class="col-lg-8 mx-auto text-center text-white">
+            
 				<?php			
 					if ($coinsname)
-						{echo 'Selected coin: '.$coinsname.PHP_EOL.'</h2>'.PHP_EOL;}
+						{echo '<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+			<ins class="adsbygoogle"
+				style="display:block; text-align:center;"
+				data-ad-layout="in-article"
+				data-ad-format="fluid"
+				data-ad-client="ca-pub-1300346742425258"
+				data-ad-slot="3665608303"></ins>
+			<script>
+				(adsbygoogle = window.adsbygoogle || []).push({});
+			</script>'.PHP_EOL;}
 					else 
-						{echo 'Choose a coin below for its trading informations </h2>'.PHP_EOL;}
+						{echo '<h2 class="col-lg-8 mx-auto text-center text-white"> Choose a coin below for its trading informations </h2>'.PHP_EOL;}
 				?>
 		   </div>
 		</div>
@@ -262,7 +271,7 @@
 	<div class="table-responsive mt-3 mb-3 text-center text-white">
 	<p class="mb-5">You can directly link to this site using following link:<br>
 	<br>
-	<a target='_blank' href='http://AltCoinPrice.io/info.php?coin=<?php echo $coinsname; ?>' class='text-white'>http://AltCoinPrice.io/info.php?coin=<?php echo $coinsname; ?></a></p>
+	<a target='_blank' href='https://AltCoinPrice.io/info.php?coin=<?php echo $coinsname; ?>' class='text-white'>http://AltCoinPrice.io/info.php?coin=<?php echo $coinsname; ?></a></p>
 	</div>
 </div>	
 	  

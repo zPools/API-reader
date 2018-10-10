@@ -48,6 +48,16 @@
 <div class="container">
         <div class="row">
           <div class="col-lg-8 mx-auto text-center">
+			<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+			<ins class="adsbygoogle"
+				style="display:block; text-align:center;"
+				data-ad-layout="in-article"
+				data-ad-format="fluid"
+				data-ad-client="ca-pub-1300346742425258"
+				data-ad-slot="3665608303"></ins>
+			<script>
+				(adsbygoogle = window.adsbygoogle || []).push({});
+			</script>
 		<form action="info.php" method="POST">
 			<input placeholder="Better use this search :)" id="myinput" name="coin" class="awesomplete" 	
 				<?php
