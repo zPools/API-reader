@@ -61,9 +61,8 @@
             <hr>
           </div>
           <div class="col-lg-8 mx-auto">
-            <p class="text-faded mb-5">The coin price engine found <strong><?php echo $coinsname; ?></strong> on <?php echo $selectcoincount;?> of <?php echo $exchangecount?> listed exchanges. Click on the button to see the coins exchange rate to bitcoin. You are able to sort the list in ascending and descending order to find the best price for your altcoin.</p>
-            <a class="btn btn-primary btn-xl js-scroll-trigger" href="#AltCoinPrice">Show exchange informations</a>
-          </div>
+			<p class="text-faded mb-5">The coin price engine found <strong><?php echo $coinsname."</strong> on ".$selectcoincount." of ".$exchangecount?> listed exchanges. Click on the button to see the coins exchange rate to bitcoin. You are able to sort the list in ascending and descending order to find the best price for your altcoin.</p>            <a class="btn btn-primary btn-xl js-scroll-trigger" href="#AltCoinPrice">Show exchange informations</a>
+		  </div>
         </div>
       </div>
     </header>
@@ -146,6 +145,7 @@
 		<?php
 		// Include db settings and make a connection
 		include('../settings/mysql/settings-db.php');
+		$coinsname = $_REQUEST['coin'];
 		// Ask for all exchange we have (1st while) and echo their results (2nd while)
 		$sqlask = "SELECT name, link, displayname FROM exchange";
 		$resultask = $conn->query($sqlask);

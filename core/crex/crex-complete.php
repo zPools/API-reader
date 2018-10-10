@@ -32,7 +32,7 @@ foreach ($json["Tickers"] as $key => $value)
 		else 
 			{echo "Error: " . $sqlwr . "<br>" . $conn->error;}
 	} 			
-$ch2 = curl_init ("http://127.0.0.1:8090/core/clean-db.php?ex=$ex");
+$ch2 = curl_init ("https://altcoinprice.io/clean-db.php?ex=$ex");
 curl_exec($ch2);
 $conn->close();
 ?>

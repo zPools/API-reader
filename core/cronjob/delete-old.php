@@ -5,7 +5,7 @@ $result = $conn->query($sql);
 while ($row = $result->fetch_assoc())
 	{
 	$exchange = $row["name"];
-	$sqlclean = "DELETE FROM `$exchange` WHERE `date` < ADDDATE(NOW(), INTERVAL -12 HOUR)";
+	$sqlclean = "DELETE FROM `$exchange` WHERE `date` < ADDDATE(NOW(), INTERVAL -1 HOUR)";
 	if ($conn->query($sqlclean) === TRUE) 
 	{echo "SUCCESS. Cleaned old data from $exchange <br />\n";} 
 	else 
