@@ -48,16 +48,6 @@
 <div class="container">
         <div class="row">
           <div class="col-lg-8 mx-auto text-center">
-			<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-			<ins class="adsbygoogle"
-				style="display:block; text-align:center;"
-				data-ad-layout="in-article"
-				data-ad-format="fluid"
-				data-ad-client="ca-pub-1300346742425258"
-				data-ad-slot="3665608303"></ins>
-			<script>
-				(adsbygoogle = window.adsbygoogle || []).push({});
-			</script>
 		<form action="info.php" method="POST">
 			<input placeholder="Better use this search :)" id="myinput" name="coin" class="awesomplete" 	
 				<?php
@@ -70,7 +60,7 @@
 						{echo ($row["coin"].", ");}
 					$conn->close();
 				?>" />	
-			<input type="submit" value="Submit" />	
+			<input class='btn btn-primary btn-xl js-scroll-trigger' type="submit" value="Submit" />	
 			</form>	
 
 		<hr class="light my-4">
@@ -117,23 +107,46 @@
 </div>	
 	  
     </section>
+	
+	
     <section id="contact">
       <div class="container">
         <div class="row">
           <div class="col-lg-8 mx-auto text-center">
-            <h2 class="section-heading"><?php echo $exchangecount?> exchanges. 
-			<?php echo $coincoin?> coins. Still not enough?</h2>
+            <h2 class="section-heading"><?php          
+					include('../settings/mysql/settings-db.php');
+					$sql = "SELECT COUNT(name) AS count FROM exchange";
+					$result = $conn->query($sql);
+					while ($row = $result->fetch_assoc()) 
+						{echo $row["count"];}				
+					$conn->close();
+			?> exchanges. <?php          
+					include('../settings/mysql/settings-db.php');
+					$sql = "SELECT COUNT(coin) AS count FROM coin";
+					$result = $conn->query($sql);
+					while ($row = $result->fetch_assoc()) 
+						{echo $row["count"];}				
+					$conn->close();
+			?> coins. Still not enough?</h2>
             <hr class="my-4">
-            <p class="mb-5">If we are missing a freshly listed coin that is on a listed exchange, wait 24 hours for the coin to show up. If its still not visible after or you have any other problems, please fill the "support request" Google form! <br /> <br />
+            <p class="mb-5">Do you have a problem with using AltCoinPrice.io or have any other request, please use our "support request" Google form! <br /> <br />
 							You are running an exchange and want to get listed? Awesome! Please fill out the "listing request" Google form!</p>
           </div>
         </div>
+          <div class="row">
+          <div class="col-lg-4 ml-auto text-center">
+            <i class="fas fa-envelope fa-3x mb-3 sr-contact-2"></i>
+			<p>
+            <a target='_blank' href=https://goo.gl/forms/xRgnXxeTt1dSiBO03>Exchange listing request</a>
+			</p>
+          </div>
           <div class="col-lg-4 mr-auto text-center">
             <i class="fas fa-envelope fa-3x mb-3 sr-contact-2"></i>
             <p>
-              <a href="mailto:your-email@your-domain.com">mail@not-set-yet.com</a>
+              <a target='_blank' href=https://goo.gl/forms/LXuRF5HLm4FCZoTb2>Support request</a>
             </p>
           </div>
+		</div>
         </div>
       </div>
     </section>
