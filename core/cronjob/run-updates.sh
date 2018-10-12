@@ -1,5 +1,6 @@
 #!/bin/sh
 echo Start coin-name-updates at `date -u`
+php7.0 /var/www/html/API-reader/core/update-btc-usd.php
 php7.0 /var/www/html/API-reader/core/crex/crex-complete.php
 php7.0 /var/www/html/API-reader/core/poloniex/polo-complete.php
 php7.0 /var/www/html/API-reader/core/southxchange/southxchange-complete.php

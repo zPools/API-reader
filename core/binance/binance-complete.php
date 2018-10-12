@@ -1,8 +1,8 @@
 <?php
 // Name the exchange
-$ex = 'stex';
+$ex = 'binance';
 // Where do I get my JSON information from?
-$url = "https://app.stex.com/api2/prices";
+$url = "https://api.binance.com/api/v3/ticker/price";
 // Decode the JSON
 $json = json_decode(file_get_contents($url), true);
 
@@ -15,12 +15,12 @@ $sqlread = "SELECT `value` FROM `options` WHERE `type` = 'btc-usd'";
 $result = $conn->query($sqlread);
 while ($row = $result->fetch_assoc()) 
 	{$price2 = $row["value"];}
+
 // Go through every key from "Tickers" and set PairName as $coinsname and Last as $price
 foreach ($json as $key => $value) 
 	{
-		//Stex dont provide "last" so we assume sell as last
-		$price = $value["sell"];
-		$coinsname = $value["market_name"];
+		$price = $value["price"];
+		$coinsname = $value["symbol"];
 		$priceUSD = $price * $price2;
 		$sqlwr =   "INSERT INTO $ex (coin, price_btc, price_usd, date)
 					VALUES ('$coinsname', '$price', '$priceUSD', '$date')";
@@ -33,7 +33,7 @@ foreach ($json as $key => $value)
 		else 
 			{echo "Error: " . $sqlwr . "<br>" . $conn->error;}
 	} 			
-$ch2 = curl_init ("https://altcoinprice.io/clean-db.php?ex=$ex");
+$ch2 = curl_init ("http://127.0.0.1:8090/core/clean-db.php?ex=$ex");
 curl_exec($ch2);
 $conn->close();
 ?>

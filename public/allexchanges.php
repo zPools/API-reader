@@ -48,22 +48,20 @@
 <div class="container">
         <div class="row">
 		  <div class="col-lg-8 mx-auto text-center">
-
-		<form action="info.php" method="POST">
-			<input placeholder="Search for a coin" id="myinput" name="coin" class="awesomplete" 	
-				<?php
-					include('../settings/mysql/settings-db.php');
-					$sql = "SELECT coin FROM coin"; 
-					$result = $conn->query($sql);
-					echo 'data-list="';
-					// make a option for every key               
-					while ($row = $result->fetch_assoc()) 
-						{echo ($row["coin"].", ");}
-					$conn->close();
-				?>" />	
-			<input class='btn btn-primary btn-xl js-scroll-trigger' type="submit" value="Submit" />		
+			<form action="info.php" method="POST">
+				<input placeholder="Search for a coin" id="myinput" name="coin" class="awesomplete" 	
+					<?php
+						include('../settings/mysql/settings-db.php');
+						$sql = "SELECT coin FROM coin"; 
+						$result = $conn->query($sql);
+						echo 'data-list="';
+						// make a option for every key               
+						while ($row = $result->fetch_assoc()) 
+							{echo ($row["coin"].", ");}
+						$conn->close();
+					?> "/>	
+				<input class='btn btn-primary btn-xl js-scroll-trigger' type="submit" value="Submit" />		
 			</form>	
-
 		<hr class="light my-4">
 		<div class="container"> 
 			<div class="card shadow">

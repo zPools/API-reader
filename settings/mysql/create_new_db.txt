@@ -1,9 +1,20 @@
 CREATE TABLE `data`.`novaexchange` ( `ID` INT NOT NULL AUTO_INCREMENT , `coin` TEXT NOT NULL , `price_btc` FLOAT NOT NULL , `price_usd` FLOAT NOT NULL , `date` DATETIME NOT NULL , PRIMARY KEY (`ID`)) ENGINE = InnoDB;
 CREATE TABLE `data`.`crypt` ( `ID` INT NOT NULL AUTO_INCREMENT , `coin` TEXT NOT NULL , `price_btc` FLOAT NOT NULL , `price_usd` FLOAT NOT NULL , `date` DATETIME NOT NULL , PRIMARY KEY (`ID`)) ENGINE = InnoDB;
 CREATE TABLE `data`.`stex` ( `ID` INT NOT NULL AUTO_INCREMENT , `coin` TEXT NOT NULL , `price_btc` FLOAT NOT NULL , `price_usd` FLOAT NOT NULL , `date` DATETIME NOT NULL , PRIMARY KEY (`ID`)) ENGINE = InnoDB;
+CREATE TABLE `data`.`binance` ( `ID` INT NOT NULL AUTO_INCREMENT , `coin` TEXT NOT NULL , `price_btc` FLOAT NOT NULL , `price_usd` FLOAT NOT NULL , `date` DATETIME NOT NULL , PRIMARY KEY (`ID`)) ENGINE = InnoDB;
+
 
 CREATE TABLE `data`.`exchange` ( `ID` INT NOT NULL AUTO_INCREMENT , `name` TEXT NOT NULL , `displayname` TEXT NOT NULL , `link` TEXT NOT NULL ,PRIMARY KEY (`ID`)) ENGINE = InnoDB;
 INSERT INTO `exchange` (name,displayname,link) VALUES ('crypt','Cryptopia','https://www.cryptopia.co.nz/');
 INSERT INTO `exchange` (name,displayname,link) VALUES ('stex','STEX (stocks.exchange)','https://www.stex.com/');
+INSERT INTO `exchange` (name,displayname,link) VALUES ('binance','Binance','https://www.binance.com/');
+
+
 
 CREATE TABLE `data`.`coin` ( `ID` INT NOT NULL AUTO_INCREMENT , `coin` VARCHAR(255) NOT NULL , PRIMARY KEY (`ID`), UNIQUE (`coin`)) ENGINE = InnoDB;
+
+
+
+
+CREATE TABLE `data`.`options` ( `type` VARCHAR(255) NOT NULL , `value` VARCHAR(255) NOT NULL , PRIMARY KEY (`type`)) ENGINE = InnoDB;
+INSERT INTO `options` (type,value) VALUES ('btc-usd','6321,21');
