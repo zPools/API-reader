@@ -8,6 +8,9 @@ php7.0 /var/www/html/API-reader/core/kucoin/kucoin-complete.php
 php7.0 /var/www/html/API-reader/core/novaexchange/novaexchange-complete.php
 php7.0 /var/www/html/API-reader/core/stex/stex-complete.php
 php7.0 /var/www/html/API-reader/core/cryptopia/cryptopia-complete.php
+php7.0 /var/www/html/API-reader/core/binance/binance-complete.php
+php7.0 /var/www/html/API-reader/core/hitbtc/hitbtc-complete.php
+php7.0 /var/www/html/API-reader/core/bleutrade/bleutrade-complete.php
 
 echo
 echo

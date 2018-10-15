@@ -1,8 +1,8 @@
 <?php
 // Name the exchange
-$ex = 'binance';
+$ex = 'hitbtc';
 // Where do I get my JSON information from?
-$url = "https://api.binance.com/api/v3/ticker/price";
+$url = "https://api.hitbtc.com/api/2/public/ticker";
 // Decode the JSON
 $json = json_decode(file_get_contents($url), true);
 
@@ -10,7 +10,7 @@ $json = json_decode(file_get_contents($url), true);
 date_default_timezone_set('Europe/Berlin');
 $date = date('Y/m/d H:i:s');
 
-include('/var/www/html/API-reader/settings/mysql/settings-db.php');
+include('../../settings/mysql/settings-db.php');
 $sqlread = "SELECT `value` FROM `options` WHERE `type` = 'btc-usd'";
 $result = $conn->query($sqlread);
 while ($row = $result->fetch_assoc()) 
@@ -19,7 +19,7 @@ while ($row = $result->fetch_assoc())
 // Go through every key from "Tickers" and set PairName as $coinsname and Last as $price
 foreach ($json as $key => $value) 
 	{
-		$price = $value["price"];
+		$price = $value["last"];
 		$coinsname = $value["symbol"];
 		$priceUSD = $price * $price2;
 		$sqlwr =   "INSERT INTO $ex (coin, price_btc, price_usd, date)
@@ -33,7 +33,7 @@ foreach ($json as $key => $value)
 		else 
 			{echo "Error: " . $sqlwr . "<br>" . $conn->error;}
 	} 			
-$ch2 = curl_init ("https://altcoinprice.io/clean-db.php?ex=$ex");
+$ch2 = curl_init ("http://127.0.0.1:8090/core/clean-db.php?ex=$ex");
 curl_exec($ch2);
 $conn->close();
 ?>

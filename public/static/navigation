@@ -31,6 +31,14 @@
             </li>			
             <li class="nav-item">
               <a class="nav-link js-scroll-trigger" href="#contact">Contact</a>
+            </li>	
+            <li class="nav-item">
+			<?php
+			  if ($GLOBALS["where"] === 'change')
+              {echo '<a class="nav-link js-scroll-trigger" href="#Changelog">Changelog</a>';}
+			  else
+			  {echo '<a class="nav-link js-scroll-trigger" href="changelog.php#Changelog">Changelog</a>';}
+			  ?>              
             </li>			
           </ul>
         </div>

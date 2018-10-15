@@ -48,7 +48,7 @@ if ($exchange ==='stex')
 		{echo "Stex naming complete<br />";} 
 	else 
 		{echo "Error: " . $sqldel20 . "<br>" . $conn->error;}
-} //Stex 
+} //Stex end
 //Binance
 $sqldel22 = "DELETE from binance where SUBSTRING(coin, -3) = 'ETH' or SUBSTRING(coin, -4) = 'USDT' or SUBSTRING(coin, -4) = 'USDT' or SUBSTRING(coin, -3) = 'BNB'";
 $sqldel23 = "UPDATE binance SET `coin` = CONCAT(LEFT(`coin`, CHAR_LENGTH(`coin`) -3), '') WHERE SUBSTRING(coin, -3) = 'BTC'";
@@ -65,9 +65,34 @@ if ($exchange ==='binance')
 		{echo "Error: " . $sqldel23 . "<br>" . $conn->error;}	
 } //Binance end
 
+//HitBTC
+$sqldel22 = "DELETE from hitbtc where SUBSTRING(coin, -3) = 'ETH' or SUBSTRING(coin, -4) = 'USDT' or SUBSTRING(coin, -4) = 'USDT' or SUBSTRING(coin, -3) = 'BNB' or SUBSTRING(coin, -3) = 'USD' or SUBSTRING(coin, -4) = 'EURS' or SUBSTRING(coin, -3) = 'EOS' or SUBSTRING(coin, -3) = 'DAI'";
+$sqldel23 = "UPDATE hitbtc SET `coin` = CONCAT(LEFT(`coin`, CHAR_LENGTH(`coin`) -3), '') WHERE SUBSTRING(coin, -3) = 'BTC'";
+if ($exchange ==='hitbtc')
+{
+	if ($conn->query($sqldel22) === TRUE) 
+		{echo "hitbtc cleaning complete<br />";} 
+	else 
+		{echo "Error: " . $sqldel22 . "<br>" . $conn->error;}
+	
+	if ($conn->query($sqldel23) === TRUE) 
+		{echo "hitbtc RENAME complete<br />";} 
+	else 
+		{echo "Error: " . $sqldel23 . "<br>" . $conn->error;}	
+} //HitBTC end
+//Bleutrade
+if ($exchange ==='bleu')
+{
+$sqldel24 = "UPDATE $exchange SET `coin` = CONCAT(LEFT(`coin`, CHAR_LENGTH(`coin`) -4), '') WHERE `coin` REGEXP '\w*_BTC'";
+if ($conn->query($sqldel24) === TRUE) 
+		{echo "bleutrade cleaning complete<br />";} 
+	else 
+		{echo "Error: " . $sqldel22 . "<br>" . $conn->error;}
+}
+//Bleutrade end
 
 //Every other
-if ($exchange !='stex' && $exchange !='binance')
+if ($exchange !='stex' && $exchange !='binance' && $exchange !='hitbtc' && $exchange !='bleu')
 {
 if ($conn->query($sqldel1) === TRUE) 
 	{echo "SUCCESSFULLY CLEANED ETH from $exchange <br />";} 

@@ -23,15 +23,21 @@
             <hr>
           </div>
           <div class="col-lg-8 mx-auto">
-            <p class="text-faded mb-5">Using AltCoinPrice.io helps you, finding highest and lowest prices across many exchanges with very frequently updated data.
-You may discover that your beloved coin is on many other exchanges, or at a stunning price!
-We at AltCoinPrice belive, that everyone should get easy access to the best coin prices.
-</p>
-            <a class="btn btn-primary btn-xl js-scroll-trigger" href="#about">Read more about</a>
-			<a class="btn btn-primary btn-xl js-scroll-trigger" href="#GetStarted">Lets get started</a>
-          </div>
-        </div>
-      </div>
+            <p class="text-faded mb-5">	Using AltCoinPrice.io helps you, finding highest and lowest prices across many exchanges with very frequently updated data.
+										You may discover that your beloved coin is on many other exchanges, or at a stunning price!
+										We at AltCoinPrice belive, that everyone should get easy access to the best coin prices.
+			</p>
+			<div class="row">
+				<div class="col-lg-4 mx-auto">
+					<a class="btn btn-primary btn-xl js-scroll-trigger" href="#about">Read more about</a>		
+				</div>
+				<div class="col-lg-4 mx-auto">		
+					<a class="btn btn-primary btn-xl js-scroll-trigger" href="#GetStarted">Lets get started</a>
+				</div>
+			</div>
+         </div>
+	    </div>
+	 </div>   
     </header>
     <section class="bg-primary" id="about">
       <div class="container">
@@ -60,7 +66,7 @@ We at AltCoinPrice belive, that everyone should get easy access to the best coin
 				</div>
           </div>
         </div>
-
+	</div>
 	  
     </section>
     <section id="cost">
@@ -144,22 +150,21 @@ We at AltCoinPrice belive, that everyone should get easy access to the best coin
 							You are running an exchange and want to get listed? Awesome! Please fill out the "listing request" Google form!</p>
           </div>
         </div>
-          <div class="row">
-          <div class="col-lg-4 ml-auto text-center">
-            <i class="fas fa-envelope fa-3x mb-3 sr-contact-2"></i>
-			<p>
-            <a target='_blank' href=https://goo.gl/forms/xRgnXxeTt1dSiBO03>Exchange listing request</a>
-			</p>
-          </div>
-          <div class="col-lg-4 mr-auto text-center">
-            <i class="fas fa-envelope fa-3x mb-3 sr-contact-2"></i>
-            <p>
-              <a target='_blank' href=https://goo.gl/forms/LXuRF5HLm4FCZoTb2>Support request</a>
-            </p>
-          </div>
+        <div class="row">
+			<div class="col-lg-4 ml-auto text-center">
+				<i class="fas fa-envelope fa-3x mb-3 sr-contact-2"></i>
+					<p>
+						<a target='_blank' href=https://goo.gl/forms/xRgnXxeTt1dSiBO03>Exchange listing request</a>
+					</p>
+			</div>
+			<div class="col-lg-4 mr-auto text-center">
+				<i class="fas fa-envelope fa-3x mb-3 sr-contact-2"></i>
+					<p>
+						<a target='_blank' href=https://goo.gl/forms/LXuRF5HLm4FCZoTb2>Support request</a>
+					</p>
+			</div>
 		</div>
-        </div>
-      </div>
+       </div>
     </section>
 	
 	
@@ -217,6 +222,7 @@ We at AltCoinPrice belive, that everyone should get easy access to the best coin
 		
 	</script>
 	
+<?php include('static/footer');?>
 	
     <!-- Bootstrap core JavaScript -->
     <script src="vendor/jquery/jquery.min.js"></script>
